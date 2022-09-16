@@ -1,0 +1,7 @@
+@use '@src/sass/abstracts/variables' as *;
+
+.table {
+  &__row:nth-child(even) {
+    background-color: $table-row;
+  }
+}

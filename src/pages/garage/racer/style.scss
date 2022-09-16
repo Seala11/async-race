@@ -1,0 +1,65 @@
+@use '@src/sass/abstracts/variables' as *;
+@use '@src/sass/abstracts/mixins' as *;
+
+.track {
+  &__item {
+    padding: 2rem 0;
+    width: 100%;
+
+    &--selected {
+      background-color: #1f5f60;
+    }
+  }
+
+  &__info {
+    display: flex;
+  }
+
+  &__race {
+    display: flex;
+    align-items: center;
+    background-color: $car-race;
+    height: 5rem;
+    border-bottom: 0.2rem dashed $car-race-border;
+    margin-left: 0.5rem;
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+
+  &__race::after {
+    content: '';
+    position: absolute;
+    width: 4rem;
+    height: 6rem;
+    background-image: url('../../../../src/assets/finish-flag.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 0;
+    right: 10rem;
+
+    @media screen and (max-width: 600px) {
+      width: 3rem;
+      height: 7rem;
+    }
+  }
+
+  &__animation {
+    position: relative;
+    width: 10rem;
+    height: 7rem;
+  }
+}
+
+@keyframes drive {
+  100% {
+    left: calc(100% - 22rem);
+  }
+}
+
+@keyframes driveBack {
+  100% {
+    left: 0%;
+  }
+}

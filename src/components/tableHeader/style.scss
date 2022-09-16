@@ -1,0 +1,37 @@
+@use '@src/sass/abstracts/variables' as *;
+
+.table {
+  &__header {
+    border: 0.1rem solid $main-text;
+    background-color: #3e3e3e;
+    padding: 1rem 0.5rem;
+  }
+
+  &__sort {
+    cursor: pointer;
+    position: relative;
+
+    &--asc {
+      &::after {
+        position: absolute;
+        content: "^";
+        transform: rotate(180deg);
+        width: 2rem;
+        height: 2rem;
+        color: $main-text;
+        right: 1rem;
+      }
+    }
+
+    &--desc {
+      &::after {
+        position: absolute;
+        content: '^';
+        width: 2rem;
+        height: 2rem;
+        color: $main-text;
+        right: 0;
+      }
+    }
+  }
+}

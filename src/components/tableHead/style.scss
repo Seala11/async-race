@@ -1,0 +1,10 @@
+@use '@src/sass/abstracts/variables' as *;
+
+.table {
+  &__head {
+    border: 0.1rem solid $main-text;
+    text-align: left;
+    padding: 8rem;
+    width: 20%;
+  }
+}

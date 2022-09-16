@@ -1,0 +1,38 @@
+@use '@src/sass/abstracts/variables' as *;
+@use '@src/sass/abstracts/mixins' as *;
+
+.button {
+  cursor: pointer;
+  border: 1px solid $text-light;
+  background-color: $primary-btn;
+  color: $main-bg;
+  margin-right: 0.8rem;
+
+  &:hover {
+    background-color: lighten($primary-btn, 10%);
+  }
+
+  &--info {
+    background-color: $car-btn;
+    width: 8rem;
+    margin-bottom: 0.5rem;
+
+    &:hover {
+      background-color: lighten($car-btn, 10%);
+    }
+  }
+
+  &--disabled {
+    background-color: $btn-disabled;
+    cursor: auto;
+
+    &:hover {
+      background-color: $btn-disabled;
+    }
+  }
+
+  &--controls {
+    width: 13.2rem;
+    height: 2.6rem;
+  }
+}

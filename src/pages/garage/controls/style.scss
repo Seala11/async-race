@@ -1,0 +1,17 @@
+.controls {
+  padding: 0 1rem;
+  &__create,
+  &__update {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__create {
+    width: 39rem;
+  }
+
+  &__update {
+    width: 42rem;
+  }
+}
