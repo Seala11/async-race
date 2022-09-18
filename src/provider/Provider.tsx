@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IProviderProps } from '@src/provider/IProviderProps';
 import AppContext from '@src/provider/AppContext';
 
-const Provider: React.FC<IProviderProps> = ({ children }) => {
+const Provider1: React.FC<IProviderProps> = ({ children }) => {
   const [currPage, setCurrPage] = useState('');
   const [winnerSort, setWinnerSort] = useState('wins');
   const [winnerWinsOrder, setWinnerWinsOrder] = useState('ASC');
@@ -28,4 +28,4 @@ const Provider: React.FC<IProviderProps> = ({ children }) => {
   return <AppContext.Provider value={providerValue}>{children}</AppContext.Provider>;
 };
 
-export default Provider;
+export default Provider1;

@@ -9,8 +9,12 @@ import RaceStatusVal from '@src/pages/garage/controls/race/IRaceProps';
 import getWinnerAPI from '@src/requests/getWinnerAPI';
 import createWinnersAPI from '@src/requests/createWinnersAPI';
 import updateWinnersAPI from '@src/requests/updateWinnersAPI';
+import { useAppDispatch } from '@src/app/store/hooks';
+import { fetchCurrentPageCars } from '@src/app/store/garageSlice';
 
 const Main: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const [pageNumber, setPageNumber] = useState(1);
   const [carsNumber, setCarsNumber] = useState(0);
   const [carsData, setCarsData] = useState<ICarData[]>([]);
@@ -29,6 +33,7 @@ const Main: React.FC = () => {
   const { raceStatus } = providerValue;
 
   const getCars = async () => {
+    dispatch(fetchCurrentPageCars(pageNumber));
     const { serverCarsData, serverCarsNumber } = await getCarsAPI(pageNumber);
     setCarsNumber(serverCarsNumber);
     setCarsData(serverCarsData);
