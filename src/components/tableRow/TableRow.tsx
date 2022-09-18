@@ -3,7 +3,11 @@ import { ITableRowProps } from '@src/components/tableRow/ITableRowProps';
 import '@src/components/tableRow/style.scss';
 
 const TableRow: React.FC<ITableRowProps> = ({ id, children }) => {
-  return <tr id={id}>{children}</tr>;
+  return (
+    <tr className="table__row" id={id}>
+      {children}
+    </tr>
+  );
 };
 
 export default TableRow;

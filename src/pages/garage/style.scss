@@ -1,6 +1,3 @@
-@use '@src/sass/abstracts/variables' as *;
-@use '@src/sass/abstracts/mixins' as *;
-
 .garage {
-  border: 1px solid $main-border;
+  border: 1px solid var(--main-border);
 }

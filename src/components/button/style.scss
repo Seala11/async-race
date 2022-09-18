@@ -1,33 +1,30 @@
-@use '@src/sass/abstracts/variables' as *;
-@use '@src/sass/abstracts/mixins' as *;
-
 .button {
   cursor: pointer;
-  border: 1px solid $text-light;
-  background-color: $primary-btn;
-  color: $main-bg;
+  border: 0.1rem solid var(--text-light);
+  background-color: var(--primary-btn);
+  color: var(--main-bg);
   margin-right: 0.8rem;
 
   &:hover {
-    background-color: lighten($primary-btn, 10%);
+    background-color: lighten(rgb(169, 230, 113), 10%);
   }
 
   &--info {
-    background-color: $car-btn;
+    background-color: var(--car-btn);
     width: 8rem;
     margin-bottom: 0.5rem;
 
     &:hover {
-      background-color: lighten($car-btn, 10%);
+      background-color: lighten(rgb(113, 222, 230), 10%);
     }
   }
 
   &--disabled {
-    background-color: $btn-disabled;
+    background-color: var(--btn-disabled);
     cursor: auto;
 
     &:hover {
-      background-color: $btn-disabled;
+      background-color:  var(--btn-disabled);
     }
   }
 

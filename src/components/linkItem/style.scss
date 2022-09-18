@@ -1,14 +1,12 @@
-@use '@src/sass/abstracts/variables' as *;
-
 .header {
   &__item {
     margin: 0.3rem;
   }
 
   &__link {
-    color: $main-bg;
+    color: var(--main-bg);
     text-decoration: none;
-    background-color: $primary-btn;
+    background-color: var(--primary-btn);
     padding: 0.3rem 1rem;
     font-size: 1.8rem;
   }

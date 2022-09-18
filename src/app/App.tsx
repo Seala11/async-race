@@ -1,5 +1,7 @@
 import React from 'react';
-import '@src/sass/main.scss';
+
+import './styles/index.scss';
+
 import '@src/app/style.scss';
 import Header from '@src/containers/header/Header';
 import Main from '@src/containers/main/Main';

@@ -1,9 +1,7 @@
-@use '@src/sass/abstracts/variables' as *;
-
 .table {
   &__header {
-    border: 0.1rem solid $main-text;
-    background-color: #3e3e3e;
+    border: 0.1rem solid var(--main-text);
+    background-color: var(--main-bg-light);
     padding: 1rem 0.5rem;
   }
 
@@ -18,7 +16,7 @@
         transform: rotate(180deg);
         width: 2rem;
         height: 2rem;
-        color: $main-text;
+        color: var(--main-text);
         right: 1rem;
       }
     }
@@ -29,7 +27,7 @@
         content: '^';
         width: 2rem;
         height: 2rem;
-        color: $main-text;
+        color: var(--main-text);
         right: 0;
       }
     }

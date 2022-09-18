@@ -1,7 +1,5 @@
-@use '@src/sass/abstracts/variables' as *;
-
 .table {
-  border: 0.1rem solid $main-text;
+  border: 0.1rem solid var(--main-text);
   width: 100%;
   border-collapse: collapse;
 }

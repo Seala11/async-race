@@ -1,0 +1,12 @@
+@use '@src/app/styles/mixins.scss' as *;
+
+html {
+  scroll-behavior: smooth;
+  font-size: 10px;
+}
+
+body {
+  @include sans;
+  font-size: 1.6rem;
+  background-color:var(--main-bg);
+}

@@ -1,9 +1,6 @@
-@use '@src/sass/abstracts/variables' as *;
-@use '@src/sass/abstracts/mixins' as *;
-
 .header {
   &__logo {
-    color: $primary-btn;
+    color: var(--primary-btn);
     font-weight: 400;
     font-size: 2rem;
   }
