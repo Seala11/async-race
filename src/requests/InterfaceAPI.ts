@@ -1,5 +1,5 @@
 export enum UrlPath {
-  base = 'http://127.0.0.1:3000',
+  base = 'https://async-race-sever.herokuapp.com',
   garage = 'garage',
   winners = 'winners',
   engine = 'engine',
