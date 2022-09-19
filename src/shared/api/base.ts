@@ -18,10 +18,6 @@ export enum GaragePageLimit {
   VALUE = 7,
 }
 
-export enum GenerateCars {
-  NUMBER = 100,
-}
-
 export enum WinnersPageLimit {
   PARAMETER = '_limit',
   VALUE = 10,

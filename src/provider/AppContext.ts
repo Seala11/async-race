@@ -1,7 +1,6 @@
 import { createContext } from 'react';
 import { IAppContext } from '@src/provider/IAppContextProps';
 import { WinnerSortOrder, WinnerSortParam } from '@src/requests/InterfaceAPI';
-import RaceStatusVal from '@src/pages/garage/controls/race/IRaceProps';
 
 const defaultContext = {
   currPage: '',
@@ -12,7 +11,6 @@ const defaultContext = {
   setWinnerWinsOrder: () => '',
   winnerTimeOrder: '',
   setWinnerTimeOrder: () => '',
-  raceStatus: RaceStatusVal.end,
   setRaceStatus: () => '',
 };
 

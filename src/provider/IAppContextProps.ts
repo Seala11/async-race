@@ -8,10 +8,10 @@ interface IWinnerSort {
   setWinnerSort: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface IRaceStatus {
-  raceStatus: string;
-  setRaceStatus: React.Dispatch<React.SetStateAction<string>>;
-}
+// interface IRaceStatus {
+//   raceStatus: string;
+//   setRaceStatus: React.Dispatch<React.SetStateAction<string>>;
+// }
 
 interface IWinnerSortOrder {
   winnerWinsOrder: string;
@@ -20,4 +20,4 @@ interface IWinnerSortOrder {
   setWinnerTimeOrder: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface IAppContext extends ICurrPage, IWinnerSort, IWinnerSortOrder, IRaceStatus {}
+export interface IAppContext extends ICurrPage, IWinnerSort, IWinnerSortOrder {}

@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
+
+import { useAppSelector } from '@src/app/store/hooks';
+import { RaceStatus, selectRaceStatus } from '@src/app/store/garageSlice';
+
 import GarageContext from '@src/provider/garage/GarageContext';
-import AppContext from '@src/provider/AppContext';
 import Image from '@src/components/image/Image';
 import Button from '@src/components/button/Button';
 import '@src/pages/garage/racer/style.scss';
@@ -9,13 +12,11 @@ import startEngineAPI from '@src/requests/startEngineAPI';
 import { EngineStatus, IEngine } from '@src/requests/InterfaceAPI';
 import driveEngineAPI from '@src/requests/driveEngineAPI';
 import { GarageProvType } from '@src/provider/garage/IProviderGarageProps';
-import RaceStatusVal from '../controls/race/IRaceProps';
 import RacerInfo from './racerInfo/RacerInfo';
 
 const Racer: React.FC<IRacerProps> = ({ ...props }) => {
   const { carData, setCarsNumber, setSelectedCar, selectedCar, raceWinner, setRaceWinner } = props;
-  const providerValue = useContext(AppContext);
-  const { raceStatus } = providerValue;
+  const raceStatus = useAppSelector(selectRaceStatus);
 
   const garageValue = useContext(GarageContext);
   const { animationStatus, setAnimationStatus } = garageValue;
@@ -117,7 +118,7 @@ const Racer: React.FC<IRacerProps> = ({ ...props }) => {
   };
 
   const animationEnd = () => {
-    if (!raceWinner.showWinMessage && raceStatus === RaceStatusVal.start && animation.name === CarCSS.animationName)
+    if (!raceWinner.showWinMessage && raceStatus === RaceStatus.START && animation.name === CarCSS.animationName)
       setRaceWinner({
         ...raceWinner,
         showWinMessage: true,
@@ -133,7 +134,7 @@ const Racer: React.FC<IRacerProps> = ({ ...props }) => {
   useEffect(() => {
     const providerPosition = getCarPosition();
     switch (raceStatus) {
-      case RaceStatusVal.start:
+      case RaceStatus.START:
         if (animation.left !== '0') {
           resetPosition();
         } else {
@@ -141,7 +142,7 @@ const Racer: React.FC<IRacerProps> = ({ ...props }) => {
         }
         break;
 
-      case RaceStatusVal.initial:
+      case RaceStatus.INIT:
         if (providerPosition && providerPosition?.active === true) {
           setAnimation({
             ...animation,
@@ -152,11 +153,11 @@ const Racer: React.FC<IRacerProps> = ({ ...props }) => {
         }
         break;
 
-      case RaceStatusVal.end:
+      case RaceStatus.END:
         stopAnimation();
         break;
 
-      case RaceStatusVal.pause:
+      case RaceStatus.PAUSE:
         setAnimation({
           ...animation,
           left: `${providerPosition?.left}px`,

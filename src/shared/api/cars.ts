@@ -1,8 +1,8 @@
 import { apiInstance, UrlPath } from './base';
 
-export enum GaragePageLimit {
-  PARAMETER = '_limit',
-  VALUE = 7,
+export enum GarageValues {
+  PAGE_LIMIT = 7,
+  GENERATE_CARS_NUMBER = 7,
 }
 
 export interface ICarData {
@@ -12,12 +12,19 @@ export interface ICarData {
 }
 
 export const carsAPI = {
-  getCars(page: number, limit = GaragePageLimit.VALUE) {
-    return apiInstance.get<ICarData[]>(`${UrlPath.GARAGE}/?_page=${page}&_limit=${limit}`).then((response) => {
-      return {
-        cars: response.data,
-        total: response.headers['x-total-count'],
-      };
-    });
+  async getCars(page: number, limit = GarageValues.PAGE_LIMIT) {
+    const response = await apiInstance.get<ICarData[]>(`${UrlPath.GARAGE}/?_page=${page}&_limit=${limit}`);
+    return {
+      cars: response.data,
+      total: response.headers['x-total-count'],
+    };
+  },
+  async createCar(name: string, color: string) {
+    const response = await apiInstance.post<ICarData[]>(`${UrlPath.GARAGE}`, { name, color });
+    return response.data;
+  },
+  async updateCar(name: string, color: string, id: number) {
+    const response = await apiInstance.put<ICarData[]>(`${UrlPath.GARAGE}/${id}`, { name, color });
+    return response.data;
   },
 };

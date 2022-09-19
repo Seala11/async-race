@@ -1,42 +1,42 @@
 import React, { useContext } from 'react';
 import Button from '@src/components/button/Button';
-import { IPaginationProps } from '@src/pages/garage/pagination/IPaginationProps';
-import getCarsAPI from '@src/requests/getCarsAPI';
 import { GaragePageLimit } from '@src/requests/InterfaceAPI';
-import AppContext from '@src/provider/AppContext';
-import RaceStatusVal from '@src/pages/garage/controls/race/IRaceProps';
 import GarageContext from '@src/provider/garage/GarageContext';
+import {
+  fetchCurrentPageCars,
+  RaceStatus,
+  selectPageNumber,
+  selectTotalCars,
+  setPageNumber,
+  setRaceStatus,
+} from '@src/app/store/garageSlice';
+import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
 
-const Pagination: React.FC<IPaginationProps> = ({ pageNumber, setPageNumber, carsNumber, setCarsData }) => {
-  const providerValue = useContext(AppContext);
-  const { setRaceStatus } = providerValue;
+const Pagination = () => {
+  const dispatch = useAppDispatch();
+  const carsNumber = useAppSelector(selectTotalCars);
+  const pageNumber = useAppSelector(selectPageNumber);
 
   const garageValue = useContext(GarageContext);
   const { setAnimationStatus } = garageValue;
 
-  const updatePage = async (currPage: number) => {
-    const { serverCarsData } = await getCarsAPI(currPage);
-    setCarsData(serverCarsData);
-    setAnimationStatus({ type: 'clear', id: 0, car: { id: 0, left: 0, active: false } });
-    setRaceStatus(RaceStatusVal.initial);
-  };
-
   const showNextPage = async () => {
     const nextPageExist = carsNumber - pageNumber * GaragePageLimit.value > 0;
     if (nextPageExist) {
-      setPageNumber((oldValue) => {
-        updatePage(oldValue + 1);
-        return oldValue + 1;
-      });
+      dispatch(setPageNumber(pageNumber + 1));
+      dispatch(fetchCurrentPageCars(pageNumber + 1));
+      dispatch(setRaceStatus(RaceStatus.INIT));
+      setAnimationStatus({ type: 'clear', id: 0, car: { id: 0, left: 0, active: false } });
+      console.log('show next page');
     }
   };
 
   const showPrevPage = async () => {
     if (pageNumber !== 1) {
-      setPageNumber((oldValue) => {
-        updatePage(oldValue - 1);
-        return oldValue - 1;
-      });
+      dispatch(setPageNumber(pageNumber - 1));
+      dispatch(fetchCurrentPageCars(pageNumber - 1));
+      dispatch(setRaceStatus(RaceStatus.INIT));
+      setAnimationStatus({ type: 'clear', id: 0, car: { id: 0, left: 0, active: false } });
     }
   };
 

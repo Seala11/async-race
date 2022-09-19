@@ -1,20 +1,22 @@
 import React from 'react';
 import Button from '@src/components/button/Button';
-import createCarAPI from '@src/requests/createCarAPI';
-import { ICreateProps } from '@src/pages/garage/controls/create/ICreateProps';
+import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
+import { fetchCreateCar, selectCreatedCar, setCreatedCarColor, setCreatedCarName } from '@src/app/store/garageSlice';
 
-const Create: React.FC<ICreateProps> = ({ updateRaceTrack, createdCar, setCreatedCar }) => {
+const CreateCar = () => {
+  const createdCar = useAppSelector(selectCreatedCar);
+  const dispatch = useAppDispatch();
+
   const createCar = async () => {
-    await createCarAPI(createdCar.name || 'New Car', createdCar.color || '#000000');
-    await updateRaceTrack();
+    dispatch(fetchCreateCar(createdCar.name || 'New Car', createdCar.color || '#000000'));
   };
 
   const changeCarName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCreatedCar({ ...createdCar, name: event.target.value });
+    dispatch(setCreatedCarName(event.target.value));
   };
 
   const changeCarColor = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCreatedCar({ ...createdCar, color: event.target.value });
+    dispatch(setCreatedCarColor(event.target.value));
   };
 
   return (
@@ -32,4 +34,4 @@ const Create: React.FC<ICreateProps> = ({ updateRaceTrack, createdCar, setCreate
   );
 };
 
-export default Create;
+export default CreateCar;

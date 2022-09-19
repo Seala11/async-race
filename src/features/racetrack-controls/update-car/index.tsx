@@ -1,21 +1,23 @@
 import React from 'react';
 import Button from '@src/components/button/Button';
-import { IUpdateProps } from '@src/pages/garage/controls/update/IUpdateProps';
-import updateCarAPI from '@src/requests/updateCarAPI';
+import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
+import { fetchUpdateCar, selectSelectedCar, setSelectedCarColor, setSelectedCarName } from '@src/app/store/garageSlice';
 
-const Update: React.FC<IUpdateProps> = ({ selectedCar, setSelectedCar, updateRaceTrack }) => {
+const UpdateCar = () => {
+  const selectedCar = useAppSelector(selectSelectedCar);
+  const dispatch = useAppDispatch();
+
   const changeCarName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedCar({ ...selectedCar, name: event.target.value });
+    dispatch(setSelectedCarName(event.target.value));
   };
 
   const changeCarColor = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedCar({ ...selectedCar, color: event.target.value });
+    dispatch(setSelectedCarColor(event.target.value));
   };
 
   const updateCar = async () => {
     if (selectedCar.id === 0) return;
-    await updateCarAPI(selectedCar.name, selectedCar.color, selectedCar.id);
-    await updateRaceTrack();
+    dispatch(fetchUpdateCar(selectedCar.name || 'New Car', selectedCar.color || '#000000', selectedCar.id));
   };
 
   return (
@@ -29,9 +31,8 @@ const Update: React.FC<IUpdateProps> = ({ selectedCar, setSelectedCar, updateRac
       />
       <input type="color" value={selectedCar.color || '#000000'} onChange={(e) => changeCarColor(e)} />
       <Button text="Update selected car" handler={updateCar} />
-      {}
     </form>
   );
 };
 
-export default Update;
+export default UpdateCar;
