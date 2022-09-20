@@ -1,4 +1,15 @@
 .table {
+  &__head {
+    border: 0.1rem solid var(--main-text);
+    text-align: left;
+    padding: 8rem;
+    width: 20%;
+  }
+
+  &__row:nth-child(even) {
+    background-color: var(--table-row);
+  }
+
   &__header {
     border: 0.1rem solid var(--main-text);
     background-color: var(--main-bg-light);
@@ -12,7 +23,7 @@
     &--asc {
       &::after {
         position: absolute;
-        content: "^";
+        content: '^';
         transform: rotate(180deg);
         width: 2rem;
         height: 2rem;

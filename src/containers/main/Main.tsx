@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Garage from '@src/pages/garage/Garage';
-import Winners from '@src/pages/winners/Winners';
+import Winners from '@src/pages/winners';
 import { ICarData } from '@src/requests/InterfaceAPI';
 import getCarsAPI from '@src/requests/getCarsAPI';
-// import AppContext from '@src/provider/AppContext';
-// import RaceStatusVal from '@src/pages/garage/controls/race/IRaceProps';
 import getWinnerAPI from '@src/requests/getWinnerAPI';
 import createWinnersAPI from '@src/requests/createWinnersAPI';
 import updateWinnersAPI from '@src/requests/updateWinnersAPI';
@@ -22,9 +20,9 @@ const Main: React.FC = () => {
   const [selectedCar, setSelectedCar] = useState({ id: 0, color: '#000000', name: '' }); // done
   const [createdCar, setCreatedCar] = useState({ color: '#000000', name: '' }); // done
 
-  // move to winner slice
-  const [winnersNumber, setWinnersNumber] = useState(0);
-  const [winnersPage, setWinnersPage] = useState(1);
+  // move to winner slice - done
+  // const [winnersNumber, setWinnersNumber] = useState(0); // total winners
+  // const [winnersPage, setWinnersPage] = useState(1); // done
   const [raceWinner, setRaceWinner] = useState({
     showWinMessage: false,
     winnerId: 0,
@@ -43,13 +41,13 @@ const Main: React.FC = () => {
     setCarsData(serverCarsData);
   };
 
-  // move to winner slice
+  // move to winner slice - DONE
   const createWinner = async (id: number, wins: number, time: number) => {
     await createWinnersAPI(id, wins, time);
-    setWinnersNumber((oldValue) => oldValue + 1);
+    // setWinnersNumber((oldValue) => oldValue + 1);
   };
 
-  // move to winner slice
+  // move to winner slice - DONE
   const updateWinnersTable = async (id: number, wins: number, time: number) => {
     const currWinner = await getWinnerAPI(id);
     if (!currWinner) {
@@ -104,10 +102,7 @@ const Main: React.FC = () => {
           />
         }
       />
-      <Route
-        path="/winners"
-        element={<Winners {...{ winnersPage, setWinnersPage, raceWinner, setWinnersNumber, winnersNumber }} />}
-      />
+      <Route path="/winners" element={<Winners />} />
     </Routes>
   );
 };

@@ -5,5 +5,8 @@
     padding: 0.8rem;
     width: 20%;
   }
-}
 
+  &__row:nth-child(even) {
+    background-color: var(--table-row);
+  }
+}

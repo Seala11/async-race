@@ -19,6 +19,10 @@ export const carsAPI = {
       total: response.headers['x-total-count'],
     };
   },
+  async getCar(id: number) {
+    const response = await apiInstance.get<ICarData>(`${UrlPath.GARAGE}/${id}`);
+    return response.data;
+  },
   async createCar(name: string, color: string) {
     const response = await apiInstance.post<ICarData[]>(`${UrlPath.GARAGE}`, { name, color });
     return response.data;
