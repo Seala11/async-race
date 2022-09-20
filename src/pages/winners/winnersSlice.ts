@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { IWinnerInfo, winnersAPI } from '@src/shared/api/winners';
 import { carsAPI, ICarData } from '@src/shared/api/cars';
-import type { AppDispatch, RootState } from '.';
+import type { AppDispatch, RootState } from '../../app/store';
 
 export enum WinnerSortParam {
   WINS = 'wins',
@@ -15,7 +15,7 @@ export enum WinnerSortOrder {
 }
 
 type RaceWinnerType = {
-  winnerId: number;
+  winnerId: number | null;
   winnerTime: string;
   winnerName: string;
 };
@@ -41,7 +41,7 @@ const initialState: WinnersState = {
   pageNumber: 1,
   showWinMessage: false,
   raceWinner: {
-    winnerId: 0,
+    winnerId: null,
     winnerTime: '',
     winnerName: '',
   },
@@ -144,6 +144,7 @@ export const fetchUpdateWinnersTable =
 
 export const selectWinnersCars = (state: RootState) => state.winners.winners;
 export const selectTotalWinners = (state: RootState) => state.winners.totalWinners;
+export const selectRaceWinner = (state: RootState) => state.winners.raceWinner;
 export const selectPageNumber = (state: RootState) => state.winners.pageNumber;
 export const selectTableSort = (state: RootState) => state.winners.tableSort;
 

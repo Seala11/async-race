@@ -1,6 +1,6 @@
 import React from 'react';
 import { IWinnerInfo } from '@src/shared/api/winners';
-import { TableSortType } from '@src/app/store/winnersSlice';
+import { TableSortType } from '@src/pages/winners/winnersSlice';
 import '@src/features/winners-table/style.scss';
 import TableHead from './table-head';
 import Body from './table-body';

@@ -1,8 +1,16 @@
-import React from 'react';
-import { IImageProps } from '@src/components/image/IImageProps';
-import '@src/components/image/image.scss';
+import React, { CSSProperties } from 'react';
+import '@src/shared/components/image/style.scss';
 
-const Image: React.FC<IImageProps> = ({ style, color, classes = '', handler }) => {
+type Props = {
+  color: string;
+  classes?: string;
+  style?: CSSProperties;
+  handler?: () => void;
+};
+
+const defaultProps = { classes: '', handler: () => {}, style: {} };
+
+const Image = ({ style, color, classes = '', handler }: Props) => {
   return (
     <svg
       onAnimationEnd={handler}
@@ -37,5 +45,7 @@ const Image: React.FC<IImageProps> = ({ style, color, classes = '', handler }) =
     </svg>
   );
 };
+
+Image.defaultProps = defaultProps;
 
 export default Image;

@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { carsAPI, GarageValues, ICarData } from '@src/shared/api/cars';
 import getRandomName from '@src/shared/helpers/getRandomName';
 import getRandomColor from '@src/shared/helpers/getRandomColor';
-import type { RootState, AppDispatch } from '.';
+import type { RootState, AppDispatch } from '../../app/store';
 
 interface GarageState {
   cars: ICarData[];
@@ -121,7 +121,6 @@ export const fetchGenerateCars = (page: number) => async (dispatch: AppDispatch)
   const carsPromises: Promise<ICarData[]>[] = Array.from(Array(GarageValues.GENERATE_CARS_NUMBER)).map(() =>
     carsAPI.createCar(getRandomName(), getRandomColor())
   );
-  debugger;
   await Promise.all(carsPromises);
   dispatch(fetchCurrentPageCars(page));
 };

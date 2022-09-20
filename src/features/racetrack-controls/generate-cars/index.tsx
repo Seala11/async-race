@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from '@src/components/button/Button';
+import Button from '@src/shared/components/button';
 import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
-import { fetchGenerateCars, selectPageNumber } from '@src/app/store/garageSlice';
+import { fetchGenerateCars, selectPageNumber } from '@src/pages/garage/garageSlice';
 
 const GenerateCars = () => {
   const dispatch = useAppDispatch();

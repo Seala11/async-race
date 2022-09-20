@@ -1,7 +1,12 @@
 import React from 'react';
-import Button from '@src/components/button/Button';
+import Button from '@src/shared/components/button';
 import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
-import { fetchUpdateCar, selectSelectedCar, setSelectedCarColor, setSelectedCarName } from '@src/app/store/garageSlice';
+import {
+  fetchUpdateCar,
+  selectSelectedCar,
+  setSelectedCarColor,
+  setSelectedCarName,
+} from '@src/pages/garage/garageSlice';
 
 const UpdateCar = () => {
   const selectedCar = useAppSelector(selectSelectedCar);

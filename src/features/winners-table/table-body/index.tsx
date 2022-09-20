@@ -1,7 +1,7 @@
 import React from 'react';
 import { IWinnerInfo, WinnersValues } from '@src/shared/api/winners';
 import '@src/features/winners-table/table-body/style.scss';
-import Image from '@src/components/image/Image';
+import Image from '@src/shared/components/image';
 
 type Props = {
   winnersPage: number;

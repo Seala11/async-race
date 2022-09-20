@@ -8,7 +8,7 @@ import {
   toggleTableWinsOrder,
   WinnerSortOrder,
   WinnerSortParam,
-} from '@src/app/store/winnersSlice';
+} from '@src/pages/winners/winnersSlice';
 import TableHeader from '../table-header';
 
 type Props = {

@@ -2,7 +2,7 @@ import React from 'react';
 import deleteCarAPI from '@src/requests/deleteCarAPI';
 import deleteWinnerAPI from '@src/requests/deleteWinnerAPI';
 import getWinnersAPI from '@src/requests/getWinnersAPI';
-import Button from '@src/components/button/Button';
+import Button from '@src/shared/components/button';
 import { IRacerInfo } from './IRacerInfo';
 
 const RacerInfo: React.FC<IRacerInfo> = ({ ...props }) => {

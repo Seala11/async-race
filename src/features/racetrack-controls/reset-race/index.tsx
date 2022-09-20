@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import Button from '@src/components/button/Button';
+import Button from '@src/shared/components/button';
 import GarageContext from '@src/provider/garage/GarageContext';
 import { useAppSelector } from '@src/app/store/hooks';
-import { RaceStatus, selectRaceStatus, setRaceStatus } from '@src/app/store/garageSlice';
+import { RaceStatus, selectRaceStatus, setRaceStatus } from '@src/pages/garage/garageSlice';
 import { useDispatch } from 'react-redux';
 
 const ResetRace = () => {

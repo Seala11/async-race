@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 
 import { useAppSelector } from '@src/app/store/hooks';
-import { RaceStatus, selectRaceStatus } from '@src/app/store/garageSlice';
+import { RaceStatus, selectRaceStatus } from '@src/pages/garage/garageSlice';
 
 import GarageContext from '@src/provider/garage/GarageContext';
-import Image from '@src/components/image/Image';
-import Button from '@src/components/button/Button';
+import Image from '@src/shared/components/image';
+import Button from '@src/shared/components/button';
 import '@src/pages/garage/racer/style.scss';
 import { IRacerProps, CarCSS } from '@src/pages/garage/racer/IRacerProps';
 import startEngineAPI from '@src/requests/startEngineAPI';

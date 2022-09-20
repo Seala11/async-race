@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ILinkItemProps } from '@src/components/linkItem/ILinkItemProps';
-import '@src/components/linkItem/style.scss';
+import '@src/shared/components/linkItem/style.scss';
 
-const LinkItem: React.FC<ILinkItemProps> = ({ path, text, handler }) => {
+type Props = {
+  path: string;
+  text: string;
+  handler: () => void;
+};
+
+const LinkItem = ({ path, text, handler }: Props) => {
   return (
     <li role="menuitem" className="header__item" onClick={handler} onKeyDown={handler}>
       <Link to={path} className="header__link">

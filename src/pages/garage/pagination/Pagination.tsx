@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Button from '@src/components/button/Button';
+import Button from '@src/shared/components/button';
 import { GaragePageLimit } from '@src/requests/InterfaceAPI';
 import GarageContext from '@src/provider/garage/GarageContext';
 import {
@@ -9,7 +9,7 @@ import {
   selectTotalCars,
   setPageNumber,
   setRaceStatus,
-} from '@src/app/store/garageSlice';
+} from '@src/pages/garage/garageSlice';
 import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
 
 const Pagination = () => {

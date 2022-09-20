@@ -7,9 +7,9 @@ import {
   selectTotalWinners,
   selectWinnersCars,
   WinnerSortParam,
-} from '@src/app/store/winnersSlice';
-import WinnersCounter from '@src/entities/winners-counter';
-import WinnersPagination from '@src/entities/winners-pagination';
+} from '@src/pages/winners/winnersSlice';
+import WinnersCounter from '@src/features/winners-table/counter';
+import WinnersPagination from '@src/features/winners-table/pagination';
 import WinnersTable from '@src/features/winners-table';
 
 const Winners = () => {

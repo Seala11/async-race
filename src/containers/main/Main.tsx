@@ -8,7 +8,7 @@ import getWinnerAPI from '@src/requests/getWinnerAPI';
 import createWinnersAPI from '@src/requests/createWinnersAPI';
 import updateWinnersAPI from '@src/requests/updateWinnersAPI';
 import { useAppDispatch } from '@src/app/store/hooks';
-import { fetchCurrentPageCars } from '@src/app/store/garageSlice';
+import { fetchCurrentPageCars } from '@src/pages/garage/garageSlice';
 
 const Main: React.FC = () => {
   const dispatch = useAppDispatch();

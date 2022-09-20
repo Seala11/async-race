@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '@src/pages/garage/counter/style.scss';
 import { useAppSelector } from '@src/app/store/hooks';
-import { selectPageNumber, selectTotalCars } from '@src/app/store/garageSlice';
+import { selectPageNumber, selectTotalCars } from '@src/pages/garage/garageSlice';
 
 const Counter = () => {
   const carsNumber = useAppSelector(selectTotalCars);

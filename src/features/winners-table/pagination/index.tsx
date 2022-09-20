@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from '@src/components/button/Button';
+import Button from '@src/shared/components/button';
 import { WinnersPageLimit } from '@src/requests/InterfaceAPI';
 import { useAppDispatch } from '@src/app/store/hooks';
-import { setPageNumber } from '@src/app/store/winnersSlice';
+import { setPageNumber } from '@src/pages/winners/winnersSlice';
 
 type Props = {
   winnersPage: number;

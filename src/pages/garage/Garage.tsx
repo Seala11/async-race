@@ -4,7 +4,7 @@ import Pagination from '@src/pages/garage/pagination/Pagination';
 import Counter from '@src/pages/garage/counter/Counter';
 import '@src/pages/garage/style.scss';
 import { IGarageProps } from '@src/pages/garage/IGarageProps';
-import WinMessage from '@src/pages/garage/message/WinMessage';
+import WinMessage from '@src/features/winner-popup';
 import RaceTrackControls from '@src/features/racetrack-controls';
 
 const Garage: React.FC<IGarageProps> = ({ ...props }) => {
@@ -13,9 +13,9 @@ const Garage: React.FC<IGarageProps> = ({ ...props }) => {
 
   return (
     <main className="garage">
+      <WinMessage />
       <RaceTrackControls />
       <Counter />
-      <WinMessage {...{ raceWinner, setRaceWinner }} />
       <Racetrack
         {...{
           carsData,

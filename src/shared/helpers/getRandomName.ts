@@ -1,5 +1,5 @@
-import carBrands from '@src/data/carBrands';
-import carModels from '@src/data/carModels';
+import carBrands from '@src/shared/data/carBrands';
+import carModels from '@src/shared/data/carModels';
 import getRandomNumber from './getRandomNumber';
 
 const getRandomName = () => {
