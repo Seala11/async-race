@@ -102,6 +102,7 @@ export const {
   setTotalWinners,
   addTotalWinners,
   setPageNumber,
+  setRaceWinner,
   setTableSortParam,
   toggleTableWinsOrder,
   toggleTableTimeOrder,

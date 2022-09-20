@@ -1,22 +1,38 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 
-import { useAppSelector } from '@src/app/store/hooks';
-import { RaceStatus, selectRaceStatus } from '@src/pages/garage/garageSlice';
+import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
+import { RaceStatus, selectRaceStatus, selectSelectedCar } from '@src/pages/garage/garageSlice';
 
 import GarageContext from '@src/provider/garage/GarageContext';
 import Image from '@src/shared/components/image';
 import Button from '@src/shared/components/button';
-import '@src/pages/garage/racer/style.scss';
-import { IRacerProps, CarCSS } from '@src/pages/garage/racer/IRacerProps';
+import '@src/features/racetrack/racer/style.scss';
 import startEngineAPI from '@src/requests/startEngineAPI';
 import { EngineStatus, IEngine } from '@src/requests/InterfaceAPI';
+
 import driveEngineAPI from '@src/requests/driveEngineAPI';
 import { GarageProvType } from '@src/provider/garage/IProviderGarageProps';
-import RacerInfo from './racerInfo/RacerInfo';
 
-const Racer: React.FC<IRacerProps> = ({ ...props }) => {
-  const { carData, setCarsNumber, setSelectedCar, selectedCar, raceWinner, setRaceWinner } = props;
+import { ICarData } from '@src/shared/api/cars';
+import { selectRaceWinner, setRaceWinner } from '@src/pages/winners/winnersSlice';
+
+import RacerInfo from '../racerInfo';
+
+enum CarCSS {
+  initialPosition = 98,
+  animationName = 'drive',
+}
+
+type Props = {
+  carData: ICarData;
+  pageNumber: number;
+};
+
+const Racer = ({ carData, pageNumber }: Props) => {
+  const dispatch = useAppDispatch();
   const raceStatus = useAppSelector(selectRaceStatus);
+  const selectedCar = useAppSelector(selectSelectedCar);
+  const raceWinner = useAppSelector(selectRaceWinner);
 
   const garageValue = useContext(GarageContext);
   const { animationStatus, setAnimationStatus } = garageValue;
@@ -118,14 +134,14 @@ const Racer: React.FC<IRacerProps> = ({ ...props }) => {
   };
 
   const animationEnd = () => {
-    if (!raceWinner.showWinMessage && raceStatus === RaceStatus.START && animation.name === CarCSS.animationName)
-      setRaceWinner({
-        ...raceWinner,
-        showWinMessage: true,
-        winnerId: carData.id,
-        winnerTime: animation.time,
-        winnerName: carData.name,
-      });
+    if (!raceWinner.winnerId && raceStatus === RaceStatus.START && animation.name === CarCSS.animationName)
+      dispatch(
+        setRaceWinner({
+          winnerId: carData.id,
+          winnerTime: animation.time,
+          winnerName: carData.name,
+        })
+      );
     const carExist = getCarPosition();
     if (carExist) updateProviderAnimation(true);
     if (!carExist) createProviderAnimation(true);
@@ -169,7 +185,7 @@ const Racer: React.FC<IRacerProps> = ({ ...props }) => {
 
   return (
     <li className={`track__item ${selectedCar.id === carData.id ? 'track__item--selected' : ''}`}>
-      <RacerInfo {...{ carData, setCarsNumber, setSelectedCar, selectedCar }} />
+      <RacerInfo carData={carData} selectedCar={selectedCar} pageNumber={pageNumber} />
       <div className="track__race">
         <Button text="start" disabled={animation.active} handler={startAnimation} classes="start" />
         <Button text="stop" disabled={!animation.active} handler={stopAnimation} classes="stop" />

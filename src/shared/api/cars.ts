@@ -31,4 +31,9 @@ export const carsAPI = {
     const response = await apiInstance.put<ICarData[]>(`${UrlPath.GARAGE}/${id}`, { name, color });
     return response.data;
   },
+  async deleteCar(id: number) {
+    const response = await apiInstance.delete<ICarData>(`${UrlPath.GARAGE}/${id}`);
+    if (response.status === 404) throw Error('Invalid ID');
+    return response.data;
+  },
 };

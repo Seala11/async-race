@@ -6,7 +6,7 @@ import StartRace from './start-race';
 import ResetRace from './reset-race';
 import GenerateCars from './generate-cars';
 
-const RaceTrackControls = () => (
+const RacetrackControls = () => (
   <div className="garage__controls controls">
     <CreateCar />
     <UpdateCar />
@@ -18,4 +18,4 @@ const RaceTrackControls = () => (
   </div>
 );
 
-export default RaceTrackControls;
+export default RacetrackControls;

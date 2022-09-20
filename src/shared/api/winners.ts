@@ -37,4 +37,9 @@ export const winnersAPI = {
     const response = await apiInstance.post<IWinnerData>(`${UrlPath.WINNERS}/${id}`, { id, wins, time });
     return response.data;
   },
+  async deleteWinner(id: number) {
+    const response = await apiInstance.delete<IWinnerData>(`${UrlPath.WINNERS}/${id}`);
+    if (response.status === 404) throw Error('Invalid ID');
+    return response.data;
+  },
 };

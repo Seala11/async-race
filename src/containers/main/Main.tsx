@@ -1,77 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Garage from '@src/pages/garage/Garage';
+import Garage from '@src/pages/garage';
 import Winners from '@src/pages/winners';
-import { ICarData } from '@src/requests/InterfaceAPI';
-import getCarsAPI from '@src/requests/getCarsAPI';
-import getWinnerAPI from '@src/requests/getWinnerAPI';
-import createWinnersAPI from '@src/requests/createWinnersAPI';
-import updateWinnersAPI from '@src/requests/updateWinnersAPI';
-import { useAppDispatch } from '@src/app/store/hooks';
-import { fetchCurrentPageCars } from '@src/pages/garage/garageSlice';
 
-const Main: React.FC = () => {
-  const dispatch = useAppDispatch();
-
-  // move to garageSlice
-  const [pageNumber, setPageNumber] = useState(1); // done
-  const [carsNumber, setCarsNumber] = useState(0); // totalcars
-  const [carsData, setCarsData] = useState<ICarData[]>([]); // cars
-  const [selectedCar, setSelectedCar] = useState({ id: 0, color: '#000000', name: '' }); // done
-  const [createdCar, setCreatedCar] = useState({ color: '#000000', name: '' }); // done
-
-  // move to winner slice - done
-  // const [winnersNumber, setWinnersNumber] = useState(0); // total winners
-  // const [winnersPage, setWinnersPage] = useState(1); // done
-  const [raceWinner, setRaceWinner] = useState({
-    showWinMessage: false,
-    winnerId: 0,
-    winnerTime: '',
-    winnerName: '',
-  });
-
-  // const providerValue = useContext(AppContext);
-  // const { raceStatus } = providerValue;
-
-  // move to wiget - racetrack
-  const getCars = async () => {
-    dispatch(fetchCurrentPageCars(pageNumber));
-    const { serverCarsData, serverCarsNumber } = await getCarsAPI(pageNumber);
-    setCarsNumber(serverCarsNumber);
-    setCarsData(serverCarsData);
-  };
-
-  // move to winner slice - DONE
-  const createWinner = async (id: number, wins: number, time: number) => {
-    await createWinnersAPI(id, wins, time);
-    // setWinnersNumber((oldValue) => oldValue + 1);
-  };
-
-  // move to winner slice - DONE
-  const updateWinnersTable = async (id: number, wins: number, time: number) => {
-    const currWinner = await getWinnerAPI(id);
-    if (!currWinner) {
-      await createWinner(id, wins, time);
-    } else {
-      const bestTime = Math.min(currWinner.time, time);
-      const totalWins = currWinner.wins + 1;
-      await updateWinnersAPI(id, totalWins, bestTime);
-    }
-  };
-
-  // move to garage page
-  useEffect(() => {
-    if (raceWinner.showWinMessage === true) {
-      const timeSec = Number(raceWinner.winnerTime.split('ms')[0]) / 1000;
-      updateWinnersTable(raceWinner.winnerId, 1, +timeSec.toFixed(2));
-    }
-  }, [raceWinner.showWinMessage]);
-
-  // move to wiget racetrack
-  useEffect(() => {
-    getCars();
-  }, [carsNumber]);
-
+const Main = () => {
   // ?? this might be refactored
   // useEffect(() => {
   //   // if (raceStatus === RaceStatusVal.end || raceStatus === RaceStatusVal.initial) {
@@ -81,27 +13,7 @@ const Main: React.FC = () => {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <Garage
-            {...{
-              pageNumber,
-              setPageNumber,
-              carsNumber,
-              setCarsNumber,
-              carsData,
-              setCarsData,
-              selectedCar,
-              setSelectedCar,
-              createdCar,
-              setCreatedCar,
-              raceWinner,
-              setRaceWinner,
-            }}
-          />
-        }
-      />
+      <Route path="/" element={<Garage />} />
       <Route path="/winners" element={<Winners />} />
     </Routes>
   );

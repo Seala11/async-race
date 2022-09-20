@@ -12,7 +12,7 @@ import {
 } from '@src/pages/garage/garageSlice';
 import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
 
-const Pagination = () => {
+const RacetrackPagination = () => {
   const dispatch = useAppDispatch();
   const carsNumber = useAppSelector(selectTotalCars);
   const pageNumber = useAppSelector(selectPageNumber);
@@ -48,4 +48,4 @@ const Pagination = () => {
   );
 };
 
-export default Pagination;
+export default RacetrackPagination;

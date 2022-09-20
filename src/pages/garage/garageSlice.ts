@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { carsAPI, GarageValues, ICarData } from '@src/shared/api/cars';
 import getRandomName from '@src/shared/helpers/getRandomName';
 import getRandomColor from '@src/shared/helpers/getRandomColor';
+import { winnersAPI } from '@src/shared/api/winners';
 import type { RootState, AppDispatch } from '../../app/store';
 
 interface GarageState {
@@ -14,7 +15,7 @@ interface GarageState {
   raceStatus: string;
 }
 
-type SelectedCar = {
+export type SelectedCar = {
   id: number;
   color: string;
   name: string;
@@ -65,6 +66,9 @@ export const garageSlice = createSlice({
     setSelectedCar: (state, action: PayloadAction<SelectedCar>) => {
       state.selectedCar = action.payload;
     },
+    removeSelectedCar: (state) => {
+      state.selectedCar = { id: 0, color: '#000000', name: '' };
+    },
     setSelectedCarName: (state, action: PayloadAction<string>) => {
       state.selectedCar = { ...state.selectedCar, name: action.payload };
     },
@@ -94,6 +98,8 @@ export const {
   setPageNumber,
   setCreatedCarColor,
   setCreatedCarName,
+  setSelectedCar,
+  removeSelectedCar,
   setSelectedCarName,
   setSelectedCarColor,
   setRaceStatus,
@@ -115,6 +121,14 @@ export const fetchCreateCar = (name: string, color: string) => async (dispatch: 
 export const fetchUpdateCar = (name: string, color: string, id: number) => async (dispatch: AppDispatch) => {
   const data = await carsAPI.updateCar(name, color, id);
   dispatch(setCars(data));
+};
+
+export const fetchDeleteCar = (id: number, page: number) => async (dispatch: AppDispatch) => {
+  await carsAPI.deleteCar(id);
+  dispatch(fetchCurrentPageCars(page));
+
+  const winnerCar = await winnersAPI.getWinner(id);
+  if (winnerCar) await winnersAPI.deleteWinner(id);
 };
 
 export const fetchGenerateCars = (page: number) => async (dispatch: AppDispatch) => {
