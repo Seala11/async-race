@@ -30,7 +30,6 @@ interface WinnersState {
   winners: IWinnerInfo[];
   totalWinners: number;
   pageNumber: number;
-  showWinMessage: boolean;
   raceWinner: RaceWinnerType;
   tableSort: TableSortType;
 }
@@ -39,7 +38,6 @@ const initialState: WinnersState = {
   winners: [],
   totalWinners: 0,
   pageNumber: 1,
-  showWinMessage: false,
   raceWinner: {
     winnerId: null,
     winnerTime: '',
@@ -75,11 +73,12 @@ export const winnersSlice = createSlice({
     setRaceWinner: (state, action: PayloadAction<RaceWinnerType>) => {
       state.raceWinner = action.payload;
     },
-    setWinMessage: (state) => {
-      state.showWinMessage = true;
-    },
-    removeWinMessage: (state) => {
-      state.showWinMessage = false;
+    resetRaceWinner: (state) => {
+      state.raceWinner = {
+        winnerId: null,
+        winnerTime: '',
+        winnerName: '',
+      };
     },
 
     // table sort
@@ -106,6 +105,7 @@ export const {
   setTableSortParam,
   toggleTableWinsOrder,
   toggleTableTimeOrder,
+  resetRaceWinner,
 } = winnersSlice.actions;
 
 export const fetchGetWinners = (page: number, sortBy: string, order: string) => async (dispatch: AppDispatch) => {
@@ -131,17 +131,16 @@ export const fetchUpdateWinner = (id: number, wins: number, time: number) => asy
   await winnersAPI.updateWinner(id, wins, time);
 };
 
-export const fetchUpdateWinnersTable =
-  async (id: number, wins: number, time: number) => async (dispatch: AppDispatch) => {
-    const currWinner = await winnersAPI.getWinner(id);
-    if (!currWinner) {
-      dispatch(fetchCreateWinner(id, wins, time));
-    } else {
-      const bestTime = Math.min(currWinner.time, time);
-      const totalWins = currWinner.wins + 1;
-      dispatch(fetchUpdateWinner(id, totalWins, bestTime));
-    }
-  };
+export const fetchUpdateWinnersTable = (id: number, time: number) => async (dispatch: AppDispatch) => {
+  const currWinner = await winnersAPI.getWinner(id);
+  if (!currWinner) {
+    dispatch(fetchCreateWinner(id, 1, time));
+  } else {
+    const bestTime = Math.min(currWinner.time, time);
+    const totalWins = currWinner.wins + 1;
+    dispatch(fetchUpdateWinner(id, totalWins, bestTime));
+  }
+};
 
 export const selectWinnersCars = (state: RootState) => state.winners.winners;
 export const selectTotalWinners = (state: RootState) => state.winners.totalWinners;

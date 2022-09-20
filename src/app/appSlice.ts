@@ -7,9 +7,9 @@ interface AppState {
   page: string;
 }
 
-enum PageName {
-  GARAGE = 'garage',
-  WINNERS = 'winners',
+export enum PageName {
+  GARAGE = 'Garage',
+  WINNERS = 'Winners',
 }
 
 const initialState: AppState = {

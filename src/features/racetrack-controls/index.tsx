@@ -6,10 +6,14 @@ import StartRace from './start-race';
 import ResetRace from './reset-race';
 import GenerateCars from './generate-cars';
 
-const RacetrackControls = () => (
+type Props = {
+  pageNumber: number;
+};
+
+const RacetrackControls = ({ pageNumber }: Props) => (
   <div className="garage__controls controls">
-    <CreateCar />
-    <UpdateCar />
+    <CreateCar pageNumber={pageNumber} />
+    <UpdateCar pageNumber={pageNumber} />
     <div className="controls__race">
       <StartRace />
       <ResetRace />

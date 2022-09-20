@@ -36,7 +36,7 @@ const Garage = () => {
   return (
     <main className="garage">
       <WinMessage />
-      <RacetrackControls />
+      <RacetrackControls pageNumber={pageNumber} />
       <RacetrackCounter pageNumber={pageNumber} carsNumber={carsNumber} />
       <Racetrack carsData={carsData} pageNumber={pageNumber} />
       <RacetrackPagination />

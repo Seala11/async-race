@@ -26,20 +26,44 @@ export const winnersAPI = {
     };
   },
   async getWinner(id: number) {
-    const response = await apiInstance.get<IWinnerData>(`${UrlPath.WINNERS}/${id}`);
-    return response.data;
+    return apiInstance
+      .get<IWinnerData>(`${UrlPath.WINNERS}/${id}`)
+      .then((response) => response.data)
+      .catch((err) => {
+        if (err.response?.status === 404) {
+          console.error('no such winner exists');
+          return null;
+        }
+        throw new Error(err);
+      });
   },
   async updateWinner(id: number, wins: number, time: number) {
+    console.log({ wins, time });
     const response = await apiInstance.put<IWinnerData>(`${UrlPath.WINNERS}/${id}`, { wins, time });
     return response.data;
   },
   async createWinner(id: number, wins: number, time: number) {
-    const response = await apiInstance.post<IWinnerData>(`${UrlPath.WINNERS}/${id}`, { id, wins, time });
-    return response.data;
+    return apiInstance
+      .post<IWinnerData>(`${UrlPath.WINNERS}`, { id, wins, time })
+      .then((response) => response.data)
+      .catch((err) => {
+        if (err.response?.status === 500) {
+          console.error('such winner already exists');
+          return null;
+        }
+        throw new Error(err);
+      });
   },
   async deleteWinner(id: number) {
-    const response = await apiInstance.delete<IWinnerData>(`${UrlPath.WINNERS}/${id}`);
-    if (response.status === 404) throw Error('Invalid ID');
-    return response.data;
+    return apiInstance
+      .delete<IWinnerData>(`${UrlPath.WINNERS}/${id}`)
+      .then((response) => response.data)
+      .catch((err) => {
+        if (err.response?.status === 404) {
+          console.error('Invalid ID');
+          return null;
+        }
+        throw new Error(err);
+      });
   },
 };

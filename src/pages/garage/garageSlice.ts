@@ -112,16 +112,16 @@ export const fetchCurrentPageCars = (page: number) => async (dispatch: AppDispat
   dispatch(setTotalCars(+data.total));
 };
 
-export const fetchCreateCar = (name: string, color: string) => async (dispatch: AppDispatch) => {
-  const data = await carsAPI.createCar(name, color);
-  dispatch(setCars(data));
-  dispatch(updateTotalCars());
+export const fetchCreateCar = (name: string, color: string, page: number) => async (dispatch: AppDispatch) => {
+  await carsAPI.createCar(name, color);
+  dispatch(fetchCurrentPageCars(page));
 };
 
-export const fetchUpdateCar = (name: string, color: string, id: number) => async (dispatch: AppDispatch) => {
-  const data = await carsAPI.updateCar(name, color, id);
-  dispatch(setCars(data));
-};
+export const fetchUpdateCar =
+  (name: string, color: string, id: number, page: number) => async (dispatch: AppDispatch) => {
+    await carsAPI.updateCar(name, color, id);
+    dispatch(fetchCurrentPageCars(page));
+  };
 
 export const fetchDeleteCar = (id: number, page: number) => async (dispatch: AppDispatch) => {
   await carsAPI.deleteCar(id);

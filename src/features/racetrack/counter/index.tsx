@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '@src/features/racetrack/counter/style.scss';
 
 type Props = {
@@ -7,10 +7,6 @@ type Props = {
 };
 
 const RacetrackCounter = ({ pageNumber, carsNumber }: Props) => {
-  useEffect(() => {
-    'update pagination';
-  }, [carsNumber, pageNumber]);
-
   return (
     <div className="garage__header">
       <h2>Garage ({carsNumber})</h2>

@@ -8,7 +8,11 @@ import {
   setSelectedCarName,
 } from '@src/pages/garage/garageSlice';
 
-const UpdateCar = () => {
+type Props = {
+  pageNumber: number;
+};
+
+const UpdateCar = ({ pageNumber }: Props) => {
   const selectedCar = useAppSelector(selectSelectedCar);
   const dispatch = useAppDispatch();
 
@@ -22,7 +26,7 @@ const UpdateCar = () => {
 
   const updateCar = async () => {
     if (selectedCar.id === 0) return;
-    dispatch(fetchUpdateCar(selectedCar.name || 'New Car', selectedCar.color || '#000000', selectedCar.id));
+    dispatch(fetchUpdateCar(selectedCar.name || 'New Car', selectedCar.color || '#000000', selectedCar.id, pageNumber));
   };
 
   return (

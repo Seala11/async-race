@@ -3,12 +3,16 @@ import Button from '@src/shared/components/button';
 import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
 import { fetchCreateCar, selectCreatedCar, setCreatedCarColor, setCreatedCarName } from '@src/pages/garage/garageSlice';
 
-const CreateCar = () => {
+type Props = {
+  pageNumber: number;
+};
+
+const CreateCar = ({ pageNumber }: Props) => {
   const createdCar = useAppSelector(selectCreatedCar);
   const dispatch = useAppDispatch();
 
   const createCar = async () => {
-    dispatch(fetchCreateCar(createdCar.name || 'New Car', createdCar.color || '#000000'));
+    dispatch(fetchCreateCar(createdCar.name || 'New Car', createdCar.color || '#000000', pageNumber));
   };
 
   const changeCarName = (event: React.ChangeEvent<HTMLInputElement>) => {
