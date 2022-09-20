@@ -1,7 +1,7 @@
 import React from 'react';
-import '@src/containers/header/style.scss';
-import Logo from '@src/shared/components/logo/Logo';
-import LinkList from '@src/containers/header/linkList/LinkList';
+import '@src/widgets/header/style.scss';
+import Logo from '@src/widgets/header/logo/Logo';
+import LinkList from '@src/widgets/header/linkList';
 
 const Header = () => {
   return (

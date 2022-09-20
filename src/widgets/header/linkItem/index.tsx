@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '@src/shared/components/linkItem/style.scss';
+import '@src/widgets/header/linkItem/style.scss';
 
 type Props = {
   path: string;

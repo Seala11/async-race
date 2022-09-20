@@ -1,6 +1,6 @@
 import React from 'react';
-import LinkItem from '@src/shared/components/linkItem';
-import '@src/containers/header/linkList/style.scss';
+import LinkItem from '@src/widgets/header/linkItem';
+import '@src/widgets/header/linkList/style.scss';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@src/app/store/hooks';
 import { RaceStatus, selectRaceStatus, setRaceStatus } from '@src/pages/garage/garageSlice';
@@ -24,6 +24,13 @@ const LinkList = () => {
     dispatch(setCurrPage(PageName.WINNERS));
     dispatch(resetRaceWinner());
   };
+
+  // ?? this might be refactored
+  // useEffect(() => {
+  //   // if (raceStatus === RaceStatusVal.end || raceStatus === RaceStatusVal.initial) {
+  //   //   setRaceWinner({ ...raceWinner, showWinMessage: false });
+  //   // }
+  // }, [raceStatus]);
 
   return (
     <ul className="header__list">

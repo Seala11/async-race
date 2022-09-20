@@ -29,6 +29,7 @@
     "class-methods-use-this": "off",
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "@typescript-eslint/no-explicit-any": "error",
+    "react/display-name": "off",
     "no-param-reassign": [
       "error",
       {
