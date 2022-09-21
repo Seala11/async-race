@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 
-import '@src/pages/garage/style.scss';
-
 import Racetrack from '@src/features/racetrack';
 import WinMessage from '@src/features/winner-popup';
 import RacetrackControls from '@src/features/racetrack-controls';
@@ -20,23 +18,21 @@ const Garage = () => {
   const carsNumber = useAppSelector(selectTotalCars);
   const loading = useAppSelector(selectLoading);
 
-  useEffect(() => {
-    console.log('update');
-  }, [carsData, pageNumber]);
+  useEffect(() => {}, [carsData, pageNumber]);
 
   useEffect(() => {
     dispatch(fetchCurrentPageCars(pageNumber));
   }, []);
 
   return (
-    <main className="garage">
+    <>
       {loading && <Preloader />}
       <WinMessage />
       <RacetrackControls pageNumber={pageNumber} />
       <RacetrackCounter pageNumber={pageNumber} carsNumber={carsNumber} />
       <Racetrack carsData={carsData} pageNumber={pageNumber} />
       <RacetrackPagination />
-    </main>
+    </>
   );
 };
 

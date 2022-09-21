@@ -4,10 +4,15 @@
   }
 
   &__link {
-    color: var(--main-bg);
+    color: var(--primary-btn);
     text-decoration: none;
-    background-color: var(--primary-btn);
+    background-color: transparent;
     padding: 0.3rem 1rem;
     font-size: 1.8rem;
+
+    &:hover, &:active {
+      text-underline-offset: 0.8rem;
+      text-decoration: underline 0.2rem;
+    }
   }
 }

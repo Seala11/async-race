@@ -1,4 +1,5 @@
 @use '@src/app/styles/mixins.scss' as *;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -6,7 +7,12 @@ html {
 }
 
 body {
-  @include sans;
-  font-size: 1.6rem;
-  background-color:var(--main-bg);
+  font-family: 'Poppins', sans-serif;
+  @include poppins;
+
+  background: rgb(59, 59, 59);
+  background: -moz-linear-gradient(90deg, rgba(59, 59, 59, 1) 0%, rgba(20, 20, 20, 1) 80%, rgba(1, 1, 1, 1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(59, 59, 59, 1) 0%, rgba(20, 20, 20, 1) 80%, rgba(1, 1, 1, 1) 100%);
+  background: linear-gradient(90deg, rgba(59, 59, 59, 1) 0%, rgba(20, 20, 20, 1) 80%, rgba(1, 1, 1, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3b3b3b",endColorstr="#010101",GradientType=1);
 }
