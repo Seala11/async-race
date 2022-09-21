@@ -7,7 +7,9 @@ import WinMessage from '@src/features/winner-popup';
 import RacetrackControls from '@src/features/racetrack-controls';
 import RacetrackCounter from '@src/features/racetrack/counter';
 import RacetrackPagination from '@src/features/racetrack/pagination';
+import Preloader from '@src/shared/components/preloader';
 
+import { selectLoading } from '@src/app/appSlice';
 import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
 import { fetchCurrentPageCars, selectCurrentCars, selectPageNumber, selectTotalCars } from './garageSlice';
 
@@ -16,6 +18,7 @@ const Garage = () => {
   const carsData = useAppSelector(selectCurrentCars);
   const pageNumber = useAppSelector(selectPageNumber);
   const carsNumber = useAppSelector(selectTotalCars);
+  const loading = useAppSelector(selectLoading);
 
   useEffect(() => {
     console.log('update');
@@ -27,6 +30,7 @@ const Garage = () => {
 
   return (
     <main className="garage">
+      {loading && <Preloader />}
       <WinMessage />
       <RacetrackControls pageNumber={pageNumber} />
       <RacetrackCounter pageNumber={pageNumber} carsNumber={carsNumber} />

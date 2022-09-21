@@ -1,9 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+
+import { removeLoading, setLoading } from '@src/app/appSlice';
+
 import { carsAPI, GarageValues, ICarData } from '@src/shared/api/cars';
+import { winnersAPI } from '@src/shared/api/winners';
 import getRandomName from '@src/shared/helpers/getRandomName';
 import getRandomColor from '@src/shared/helpers/getRandomColor';
-import { winnersAPI } from '@src/shared/api/winners';
+
 import type { RootState, AppDispatch } from '../../app/store';
 
 interface GarageState {
@@ -106,10 +110,17 @@ export const {
 } = garageSlice.actions;
 
 export const fetchCurrentPageCars = (page: number) => async (dispatch: AppDispatch) => {
-  const data = await carsAPI.getCars(page);
-  console.log(data);
-  dispatch(setCars(data.cars));
-  dispatch(setTotalCars(+data.total));
+  dispatch(setLoading());
+  try {
+    const data = await carsAPI.getCars(page);
+    console.log(data);
+    dispatch(setCars(data.cars));
+    dispatch(setTotalCars(+data.total));
+  } catch (err) {
+    console.error(err);
+  } finally {
+    dispatch(removeLoading());
+  }
 };
 
 export const fetchCreateCar = (name: string, color: string, page: number) => async (dispatch: AppDispatch) => {

@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+
+import { removeLoading, setLoading } from '@src/app/appSlice';
+
 import { IWinnerInfo, winnersAPI } from '@src/shared/api/winners';
 import { carsAPI, ICarData } from '@src/shared/api/cars';
+
 import type { AppDispatch, RootState } from '../../app/store';
 
 export enum WinnerSortParam {
@@ -109,17 +113,23 @@ export const {
 } = winnersSlice.actions;
 
 export const fetchGetWinners = (page: number, sortBy: string, order: string) => async (dispatch: AppDispatch) => {
-  const { cars, total } = await winnersAPI.getWinners(page, sortBy, order);
-  console.log('from slice', cars, total);
-  const dataPromises = cars.map(async (winner) => {
-    const carData: ICarData = await carsAPI.getCar(winner.id);
-    const winnerData: IWinnerInfo = Object.assign(winner, carData);
-    return winnerData;
-  });
+  dispatch(setLoading());
+  try {
+    const { cars, total } = await winnersAPI.getWinners(page, sortBy, order);
+    const dataPromises = cars.map(async (winner) => {
+      const carData: ICarData = await carsAPI.getCar(winner.id);
+      const winnerData: IWinnerInfo = Object.assign(winner, carData);
+      return winnerData;
+    });
 
-  const info = await Promise.all(dataPromises);
-  dispatch(setWinners(info));
-  dispatch(setTotalWinners(+total));
+    const info = await Promise.all(dataPromises);
+    dispatch(setWinners(info));
+    dispatch(setTotalWinners(+total));
+  } catch (err) {
+    console.error(err);
+  } finally {
+    dispatch(removeLoading());
+  }
 };
 
 export const fetchCreateWinner = (id: number, wins: number, time: number) => async (dispatch: AppDispatch) => {
