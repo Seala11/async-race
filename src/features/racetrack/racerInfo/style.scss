@@ -1,0 +1,38 @@
+.info {
+  &__wrapper {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__button-wrapper {
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  &__button {
+    cursor: pointer;
+    border: 0;
+    color: var(--main-light);
+    padding: 0.8rem 1rem 0.6rem 2.6rem;
+    background-color: transparent;
+    border: 2px solid var(--main-bg);
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+      border: 2px solid var(--primary);
+      background-color: var(--primary);
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 0.9rem;
+    left: 0.5rem;
+  }
+
+  &__name {
+    margin: 0;
+    font-size: 2.5rem;
+  }
+}

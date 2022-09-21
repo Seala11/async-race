@@ -1,8 +1,11 @@
 import React from 'react';
-import Button from '@src/shared/components/button';
 import { ICarData } from '@src/shared/api/cars';
 import { fetchDeleteCar, removeSelectedCar, SelectedCar, setSelectedCar } from '@src/pages/garage/garageSlice';
 import { useAppDispatch } from '@src/app/store/hooks';
+
+import '@src/features/racetrack/racerInfo/style.scss';
+
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 
 type Props = {
   carData: ICarData;
@@ -26,16 +29,30 @@ const RacerInfo = ({ carData, selectedCar, pageNumber }: Props) => {
   };
 
   return (
-    <div className="track__info">
-      <Button text="delete" classes="button--info" handler={deleteRacer} />
-      <Button
-        text={`${selectedCar.id === carData.id ? 'unselect' : 'select'}`}
-        classes="button--info"
-        handler={selectCar}
-      />
-      <div key={carData.id}>{carData.name}</div>
+    <div className="track__info info">
+      <p key={carData.id} className="info__name">
+        {carData.name}
+      </p>
+
+      <div className="info__wrapper">
+        <div className="info__button-wrapper">
+          <AiFillEdit className="info__icon" fill="#fff" />
+          <button className="info__button" type="button" onClick={selectCar}>
+            Edit
+          </button>
+        </div>
+
+        <div className="info__button-wrapper">
+          <AiFillDelete className="info__icon" fill="#fff" />
+          <button className="info__button" type="button" onClick={deleteRacer}>
+            Delete
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default RacerInfo;
+
+// {/* <Button text="delete" classes="button--info" handler={deleteRacer} /> */}

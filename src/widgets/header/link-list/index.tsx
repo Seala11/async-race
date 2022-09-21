@@ -1,5 +1,5 @@
 import React from 'react';
-import '@src/widgets/header/linkList/style.scss';
+import '@src/widgets/header/link-list/style.scss';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@src/app/store/hooks';

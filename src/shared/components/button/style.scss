@@ -9,16 +9,6 @@
     background-color: lighten(rgb(169, 230, 113), 10%);
   }
 
-  &--info {
-    background-color: var(--car-btn);
-    width: 8rem;
-    margin-bottom: 0.5rem;
-
-    &:hover {
-      background-color: lighten(rgb(113, 222, 230), 10%);
-    }
-  }
-
   &--disabled {
     background-color: var(--btn-disabled);
     cursor: auto;

@@ -1,16 +1,26 @@
 .header {
+  &__list {
+    list-style: none;
+    display: flex;
+  }
+
   &__item {
     margin: 0.3rem;
   }
 
   &__link {
-    color: var(--primary-btn);
+    color: var(--primary);
     text-decoration: none;
     background-color: transparent;
     padding: 0.3rem 1rem;
     font-size: 1.8rem;
 
-    &:hover, &:active {
+    &:hover{
+      text-underline-offset: 0.8rem;
+      text-decoration: underline 0.2rem;
+    }
+
+    &--active {
       text-underline-offset: 0.8rem;
       text-decoration: underline 0.2rem;
     }
