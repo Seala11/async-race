@@ -27,12 +27,12 @@ const RacerInfo = ({ carData, selectedCar, pageNumber }: Props) => {
 
   return (
     <div className="track__info">
+      <Button text="delete" classes="button--info" handler={deleteRacer} />
       <Button
         text={`${selectedCar.id === carData.id ? 'unselect' : 'select'}`}
         classes="button--info"
         handler={selectCar}
       />
-      <Button text="delete" classes="button--info" handler={deleteRacer} />
       <div key={carData.id}>{carData.name}</div>
     </div>
   );

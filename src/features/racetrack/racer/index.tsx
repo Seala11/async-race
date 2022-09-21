@@ -1,19 +1,21 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
-import { RaceStatus, selectRaceStatus, selectSelectedCar } from '@src/pages/garage/garageSlice';
+import {
+  addRacerAnimation,
+  RaceStatus,
+  selectRacesAnimation,
+  selectRaceStatus,
+  selectSelectedCar,
+  updateRacerAnimation,
+} from '@src/pages/garage/garageSlice';
 
-import GarageContext from '@src/provider/garage/GarageContext';
 import Image from '@src/shared/components/image';
 import Button from '@src/shared/components/button';
 import '@src/features/racetrack/racer/style.scss';
-import startEngineAPI from '@src/requests/startEngineAPI';
-import { EngineStatus, IEngine } from '@src/requests/InterfaceAPI';
-
-import driveEngineAPI from '@src/requests/driveEngineAPI';
-import { GarageProvType } from '@src/provider/garage/IProviderGarageProps';
 
 import { ICarData } from '@src/shared/api/cars';
+import { engineAPI, IEngine } from '@src/shared/api/engine';
 import { selectRaceWinner, setRaceWinner } from '@src/pages/winners/winnersSlice';
 
 import RacerInfo from '../racerInfo';
@@ -33,9 +35,7 @@ const Racer = ({ carData, pageNumber }: Props) => {
   const raceStatus = useAppSelector(selectRaceStatus);
   const selectedCar = useAppSelector(selectSelectedCar);
   const raceWinner = useAppSelector(selectRaceWinner);
-
-  const garageValue = useContext(GarageContext);
-  const { animationStatus, setAnimationStatus } = garageValue;
+  const animationStatus = useAppSelector(selectRacesAnimation);
 
   const image = useRef<HTMLDivElement>(null);
   const [isDriving, setIsDriving] = useState(false);
@@ -44,45 +44,43 @@ const Racer = ({ carData, pageNumber }: Props) => {
     name: '',
     active: false,
     mode: '',
-    left: `${animationStatus.find((car) => carData.id === car.id)?.left}px`,
+    pos: `${animationStatus.find((car) => carData.id === car.id)?.position}px`,
   });
 
   const getCarPosition = () => {
     return animationStatus.find((car) => carData.id === car.id);
   };
 
-  const updateProviderAnimation = (isActive: boolean) => {
+  const updateCarAnimation = (isActive: boolean) => {
     const currLeft = image.current?.offsetLeft;
     if (currLeft) {
-      setAnimationStatus({
-        type: GarageProvType.delete,
-        id: carData.id,
-        car: { id: 0, left: 0, active: false },
-      });
-      setAnimationStatus({
-        type: GarageProvType.add,
-        id: carData.id,
-        car: { id: carData.id, left: isActive ? currLeft - CarCSS.initialPosition : 0, active: isActive },
-      });
+      dispatch(
+        updateRacerAnimation({
+          id: carData.id,
+          position: isActive ? currLeft - CarCSS.initialPosition : 0,
+          active: isActive,
+        })
+      );
     }
   };
 
-  const createProviderAnimation = (isActive: boolean) => {
+  const createCarAnimation = (isActive: boolean) => {
     const currLeft = image.current?.offsetLeft;
     if (currLeft) {
-      setAnimationStatus({
-        type: GarageProvType.add,
-        id: carData.id,
-        car: { id: carData.id, left: isActive ? currLeft - CarCSS.initialPosition : 0, active: isActive },
-      });
+      dispatch(
+        addRacerAnimation({
+          id: carData.id,
+          position: isActive ? currLeft - CarCSS.initialPosition : 0,
+          active: isActive,
+        })
+      );
     }
   };
 
   const drive = async () => {
     if (isDriving) {
-      const { success } = await driveEngineAPI(carData.id);
+      const success = await engineAPI.drive(carData.id);
       if (!success) {
-        // console.log('broken car: ', carData.name);
         const brokenPosition = image.current?.offsetLeft;
         if (!brokenPosition) return;
         setAnimation({
@@ -91,11 +89,11 @@ const Racer = ({ carData, pageNumber }: Props) => {
           name: '',
           active: true,
           mode: '',
-          left: `${brokenPosition - CarCSS.initialPosition}px`,
+          pos: `${brokenPosition - CarCSS.initialPosition}px`,
         });
         const carExist = getCarPosition();
-        if (carExist) updateProviderAnimation(true);
-        if (!carExist) createProviderAnimation(true);
+        if (carExist) updateCarAnimation(true);
+        if (!carExist) createCarAnimation(true);
         setIsDriving(!isDriving);
       }
     }
@@ -106,7 +104,7 @@ const Racer = ({ carData, pageNumber }: Props) => {
   }, [isDriving]);
 
   const startAnimation = async () => {
-    await startEngineAPI(carData.id, EngineStatus.start).then(({ distance, velocity }: IEngine) => {
+    await engineAPI.start(carData.id).then(({ distance, velocity }: IEngine) => {
       const timeMS = parseInt((distance / velocity).toString(), 10);
       setAnimation({
         ...animation,
@@ -114,22 +112,22 @@ const Racer = ({ carData, pageNumber }: Props) => {
         name: `${CarCSS.animationName}`,
         active: true,
         mode: 'forwards',
-        left: '0',
+        pos: '0',
       });
       setIsDriving(!isDriving);
     });
   };
 
   const stopAnimation = async () => {
-    await startEngineAPI(carData.id, EngineStatus.stop);
-    setAnimation({ ...animation, left: '0', name: '', active: false });
+    await engineAPI.stop(carData.id);
+    setAnimation({ ...animation, pos: '0', name: '', active: false });
     const carExist = getCarPosition();
-    if (carExist) updateProviderAnimation(false);
-    if (!carExist) createProviderAnimation(false);
+    if (carExist) updateCarAnimation(false);
+    if (!carExist) createCarAnimation(false);
   };
 
   const resetPosition = () => {
-    setAnimation({ ...animation, left: '0', name: '' });
+    setAnimation({ ...animation, pos: '0', name: '' });
     startAnimation();
   };
 
@@ -143,15 +141,15 @@ const Racer = ({ carData, pageNumber }: Props) => {
         })
       );
     const carExist = getCarPosition();
-    if (carExist) updateProviderAnimation(true);
-    if (!carExist) createProviderAnimation(true);
+    if (carExist) updateCarAnimation(true);
+    if (!carExist) createCarAnimation(true);
   };
 
   useEffect(() => {
-    const providerPosition = getCarPosition();
+    const currPosition = getCarPosition();
     switch (raceStatus) {
       case RaceStatus.START:
-        if (animation.left !== '0') {
+        if (animation.pos !== '0') {
           resetPosition();
         } else {
           startAnimation();
@@ -159,12 +157,12 @@ const Racer = ({ carData, pageNumber }: Props) => {
         break;
 
       case RaceStatus.INIT:
-        if (providerPosition && providerPosition?.active === true) {
+        if (currPosition && currPosition?.active === true) {
           setAnimation({
             ...animation,
             name: '',
             active: true,
-            left: `${providerPosition?.left}`,
+            pos: `${currPosition?.position}`,
           });
         }
         break;
@@ -176,8 +174,8 @@ const Racer = ({ carData, pageNumber }: Props) => {
       case RaceStatus.PAUSE:
         setAnimation({
           ...animation,
-          left: `${providerPosition?.left}px`,
-          active: providerPosition?.active || false,
+          pos: `${currPosition?.position}px`,
+          active: currPosition?.active || false,
         });
       // no default
     }
@@ -193,7 +191,7 @@ const Racer = ({ carData, pageNumber }: Props) => {
           className="track__animation"
           ref={image}
           style={{
-            left: animation.left,
+            left: animation.pos,
             animationDuration: animation.time,
             animationName: animation.name,
             animationFillMode: animation.mode,

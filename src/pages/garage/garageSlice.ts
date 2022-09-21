@@ -10,15 +10,6 @@ import getRandomColor from '@src/shared/helpers/getRandomColor';
 
 import type { RootState, AppDispatch } from '../../app/store';
 
-interface GarageState {
-  cars: ICarData[];
-  totalCars: number;
-  pageNumber: number;
-  selectedCar: SelectedCar;
-  createdCar: CreatedCar;
-  raceStatus: string;
-}
-
 export type SelectedCar = {
   id: number;
   color: string;
@@ -30,11 +21,34 @@ type CreatedCar = {
   name: string;
 };
 
+export type RacerAnimationType = {
+  id: number;
+  position: number;
+  active: boolean;
+};
+
+// export type RacerDriveType = {
+//   id: number;
+//   driveStatus: boolean;
+//   velocity: number;
+//   distance: number;
+// };
+
 export enum RaceStatus {
   INIT = 'initial',
   START = 'start',
   END = 'end',
   PAUSE = 'pause',
+}
+
+interface GarageState {
+  cars: ICarData[];
+  totalCars: number;
+  pageNumber: number;
+  selectedCar: SelectedCar;
+  createdCar: CreatedCar;
+  raceStatus: string;
+  racersAnimation: RacerAnimationType[];
 }
 
 const initialState: GarageState = {
@@ -44,6 +58,7 @@ const initialState: GarageState = {
   selectedCar: { id: 0, color: '#000000', name: '' },
   createdCar: { color: '#000000', name: '' },
   raceStatus: RaceStatus.INIT,
+  racersAnimation: [],
 };
 
 export const garageSlice = createSlice({
@@ -92,6 +107,19 @@ export const garageSlice = createSlice({
     setRaceStatus: (state, action: PayloadAction<RaceStatus>) => {
       state.raceStatus = action.payload;
     },
+    addRacerAnimation: (state, action: PayloadAction<RacerAnimationType>) => {
+      state.racersAnimation = [...state.racersAnimation, action.payload];
+      console.log('add', state.racersAnimation);
+    },
+    updateRacerAnimation: (state, action: PayloadAction<RacerAnimationType>) => {
+      const newState = state.racersAnimation.filter((item) => item.id !== action.payload.id);
+      state.racersAnimation = [...newState, action.payload];
+      console.log('update', state.racersAnimation);
+    },
+    clearRacersAnimation: (state) => {
+      state.racersAnimation = [];
+      console.log('clear', state.racersAnimation);
+    },
   },
 });
 
@@ -107,6 +135,9 @@ export const {
   setSelectedCarName,
   setSelectedCarColor,
   setRaceStatus,
+  addRacerAnimation,
+  updateRacerAnimation,
+  clearRacersAnimation,
 } = garageSlice.actions;
 
 export const fetchCurrentPageCars = (page: number) => async (dispatch: AppDispatch) => {
@@ -156,5 +187,6 @@ export const selectPageNumber = (state: RootState) => state.garage.pageNumber;
 export const selectCreatedCar = (state: RootState) => state.garage.createdCar;
 export const selectSelectedCar = (state: RootState) => state.garage.selectedCar;
 export const selectRaceStatus = (state: RootState) => state.garage.raceStatus;
+export const selectRacesAnimation = (state: RootState) => state.garage.racersAnimation;
 
 export default garageSlice.reducer;

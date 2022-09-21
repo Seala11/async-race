@@ -20,7 +20,6 @@ const App: React.FC = () => {
 export default withProviders(App);
 
 // TODO: add garage provider to redux
-// TODO: add preloader to all features (loading in app slice)
 // TODO: add withstore to ./providers (like with routing)
 
 // TODO: after update selected app unselect

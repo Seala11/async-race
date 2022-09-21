@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Button from '@src/shared/components/button';
-import { GaragePageLimit } from '@src/requests/InterfaceAPI';
-import GarageContext from '@src/provider/garage/GarageContext';
+
 import {
+  clearRacersAnimation,
   fetchCurrentPageCars,
   RaceStatus,
   selectPageNumber,
@@ -11,23 +11,26 @@ import {
   setRaceStatus,
 } from '@src/pages/garage/garageSlice';
 import { useAppDispatch, useAppSelector } from '@src/app/store/hooks';
+import { resetRaceWinner } from '@src/pages/winners/winnersSlice';
+import { GarageValues } from '@src/shared/api/cars';
 
 const RacetrackPagination = () => {
   const dispatch = useAppDispatch();
   const carsNumber = useAppSelector(selectTotalCars);
   const pageNumber = useAppSelector(selectPageNumber);
 
-  const garageValue = useContext(GarageContext);
-  const { setAnimationStatus } = garageValue;
+  const resetRace = () => {
+    dispatch(setRaceStatus(RaceStatus.INIT));
+    dispatch(clearRacersAnimation());
+    dispatch(resetRaceWinner());
+  };
 
   const showNextPage = async () => {
-    const nextPageExist = carsNumber - pageNumber * GaragePageLimit.value > 0;
+    const nextPageExist = carsNumber - pageNumber * GarageValues.PAGE_LIMIT > 0;
     if (nextPageExist) {
       dispatch(setPageNumber(pageNumber + 1));
       dispatch(fetchCurrentPageCars(pageNumber + 1));
-      dispatch(setRaceStatus(RaceStatus.INIT));
-      setAnimationStatus({ type: 'clear', id: 0, car: { id: 0, left: 0, active: false } });
-      console.log('show next page');
+      resetRace();
     }
   };
 
@@ -35,8 +38,7 @@ const RacetrackPagination = () => {
     if (pageNumber !== 1) {
       dispatch(setPageNumber(pageNumber - 1));
       dispatch(fetchCurrentPageCars(pageNumber - 1));
-      dispatch(setRaceStatus(RaceStatus.INIT));
-      setAnimationStatus({ type: 'clear', id: 0, car: { id: 0, left: 0, active: false } });
+      resetRace();
     }
   };
 

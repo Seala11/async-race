@@ -1,20 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Button from '@src/shared/components/button';
-import GarageContext from '@src/provider/garage/GarageContext';
 import { useAppSelector } from '@src/app/store/hooks';
-import { RaceStatus, selectRaceStatus, setRaceStatus } from '@src/pages/garage/garageSlice';
+import { clearRacersAnimation, RaceStatus, selectRaceStatus, setRaceStatus } from '@src/pages/garage/garageSlice';
 import { useDispatch } from 'react-redux';
+import { resetRaceWinner } from '@src/pages/winners/winnersSlice';
 
 const ResetRace = () => {
   const dispatch = useDispatch();
   const raceStatus = useAppSelector(selectRaceStatus);
 
-  const garageValue = useContext(GarageContext);
-  const { setAnimationStatus } = garageValue;
-
   const reset = async () => {
-    setAnimationStatus({ type: 'clear', id: 0, car: { id: 0, left: 0, active: false } });
     dispatch(setRaceStatus(RaceStatus.END));
+    dispatch(clearRacersAnimation());
+    dispatch(resetRaceWinner());
   };
 
   return (
