@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from '@src/shared/components/button';
-import { WinnersPageLimit } from '@src/requests/InterfaceAPI';
 import { useAppDispatch } from '@src/app/store/hooks';
 import { setPageNumber } from '@src/pages/winners/winnersSlice';
+import { WinnersValues } from '@src/shared/api/winners';
 
 type Props = {
   winnersPage: number;
@@ -14,7 +14,7 @@ const WinnersPagination = (props: Props) => {
   const dispatch = useAppDispatch();
 
   const showNextPage = () => {
-    const nextPageExist = winnersNumber - winnersPage * WinnersPageLimit.value > 0;
+    const nextPageExist = winnersNumber - winnersPage * WinnersValues.PAGE_LIMIT > 0;
     if (nextPageExist) dispatch(setPageNumber(winnersPage + 1));
   };
 
