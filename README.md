@@ -29,6 +29,12 @@ The project for Rolling Scope School Stage 2
 - Sass
 - Webpack
 
+## App
+
+![Async Race - garage](https://res.cloudinary.com/djr2g4xrc/image/upload/v1663890508/async-race/garage.png)
+
+![Async Race - winners](https://res.cloudinary.com/djr2g4xrc/image/upload/v1663890508/async-race/winners.png)
+
 ## Setup and Running
 
 ### Install dependencies:
