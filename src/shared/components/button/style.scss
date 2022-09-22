@@ -13,11 +13,16 @@
     border: 0.1rem solid darken(#51b56d, 10%);
   }
 
+  &__generate {
+    font-size: 1.8rem;
+    width: 16rem;
+  }
+
   &__race {
     background-color: var(--transparent);
     border: 0.1rem solid var(--race);
     color: var(--race);
-    font-size: 2rem;
+    font-size: 1.8rem;
     width: 16rem;
 
     &:hover {
@@ -30,6 +35,11 @@
   &__edit {
     background-color: var(--active);
     border: 0.1rem solid var(--active);
+  }
+
+  &__create, &__edit {
+    width: 15rem;
+    height: 3.5rem;
   }
 
   &--disabled {

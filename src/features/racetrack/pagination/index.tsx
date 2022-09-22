@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@src/shared/components/button';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 import {
   clearRacersAnimation,
@@ -18,6 +18,7 @@ const RacetrackPagination = () => {
   const dispatch = useAppDispatch();
   const carsNumber = useAppSelector(selectTotalCars);
   const pageNumber = useAppSelector(selectPageNumber);
+  const nextPageExist = carsNumber - pageNumber * GarageValues.PAGE_LIMIT > 0;
 
   const resetRace = () => {
     dispatch(setRaceStatus(RaceStatus.INIT));
@@ -26,7 +27,6 @@ const RacetrackPagination = () => {
   };
 
   const showNextPage = async () => {
-    const nextPageExist = carsNumber - pageNumber * GarageValues.PAGE_LIMIT > 0;
     if (nextPageExist) {
       dispatch(setPageNumber(pageNumber + 1));
       dispatch(fetchCurrentPageCars(pageNumber + 1));
@@ -43,9 +43,13 @@ const RacetrackPagination = () => {
   };
 
   return (
-    <div className="garage__pagination">
-      <Button text="prev" handler={showPrevPage} />
-      <Button text="next" handler={showNextPage} />
+    <div className="garage__pagination pagination">
+      <button type="button" onClick={showPrevPage} className="pagination__button" disabled={pageNumber === 1}>
+        <AiOutlineArrowLeft className="pagination__icon" fill="#fff" />
+      </button>
+      <button type="button" onClick={showNextPage} className="pagination__button" disabled={!nextPageExist}>
+        <AiOutlineArrowRight className="pagination__icon" fill="#fff" />
+      </button>
     </div>
   );
 };

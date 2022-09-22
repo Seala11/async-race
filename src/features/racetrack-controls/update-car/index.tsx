@@ -38,12 +38,14 @@ const UpdateCar = ({ pageNumber }: Props) => {
         placeholder="Car Name"
         onChange={(e) => changeCarName(e)}
         disabled={selectedCar.id === 0}
+        className="controls__input"
       />
       <input
         type="color"
         value={selectedCar.color || '#000000'}
         onChange={(e) => changeCarColor(e)}
         disabled={selectedCar.id === 0}
+        className="controls__input"
       />
       <Button text="Edit car" handler={updateCar} disabled={selectedCar.id === 0} classes="button__edit" />
     </form>

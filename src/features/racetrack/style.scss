@@ -1,6 +1,51 @@
-.garage__track {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.garage {
+  &__track {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 }
 
+.pagination {
+  display: flex;
+  width: 7rem;
+  justify-content: space-between;
+  align-items: center;
+
+  &__button {
+    color: var(--main-text);
+    padding: 1.2rem;
+    background-color: transparent;
+    border: 0.2rem solid var(--main-text);
+    border-radius: 0.5rem;
+    font-weight: 300;
+    font-size: 1.4rem;
+    position: relative;
+    cursor: pointer;
+
+    &:hover,
+    &--active {
+      border: 0.2rem solid var(--primary);
+      background-color: var(--primary);
+    }
+
+    &:disabled {
+      background-color: var(--disabled);
+      border: 0.1rem solid var(--disabled);
+      color: var(--main-text);
+      cursor: auto;
+
+      &:hover {
+        background-color: var(--disabled);
+        border: 0.1rem solid var(--disabled);
+      }
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 0.4rem;
+    left: 0.4rem;
+    font-size: 1.6rem;
+  }
+}

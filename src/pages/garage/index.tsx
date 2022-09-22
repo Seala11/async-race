@@ -4,7 +4,6 @@ import Racetrack from '@src/features/racetrack';
 import WinMessage from '@src/features/winner-popup';
 import RacetrackControls from '@src/features/racetrack-controls';
 import RacetrackCounter from '@src/features/racetrack/counter';
-import RacetrackPagination from '@src/features/racetrack/pagination';
 import Preloader from '@src/shared/components/preloader';
 
 import { selectLoading } from '@src/app/appSlice';
@@ -31,7 +30,6 @@ const Garage = () => {
       <RacetrackControls pageNumber={pageNumber} />
       <RacetrackCounter pageNumber={pageNumber} carsNumber={carsNumber} />
       <Racetrack carsData={carsData} pageNumber={pageNumber} />
-      <RacetrackPagination />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import '@src/features/racetrack/counter/style.scss';
+import RacetrackPagination from '../pagination';
 
 type Props = {
   pageNumber: number;
@@ -9,8 +10,11 @@ type Props = {
 const RacetrackCounter = ({ pageNumber, carsNumber }: Props) => {
   return (
     <div className="garage__header">
-      <h2>Garage ({carsNumber})</h2>
-      <h3>Page # {pageNumber}</h3>
+      <h2>Cars: {carsNumber}</h2>
+      <div className="header__pagination">
+        <h3>Page # {pageNumber}</h3>
+        <RacetrackPagination />
+      </div>
     </div>
   );
 };

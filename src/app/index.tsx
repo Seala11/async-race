@@ -21,10 +21,6 @@ export default withProviders(App);
 
 // TODO: add withstore to ./providers (like with routing)
 
-// TODO: after update selected app unselect
-// TODO: show message between pages (now it removes, should be displayed)
-// TODO: delete request folder/ provider
-// TODO: split slicer maybe
 // TODO: add footer
 
 // TODO: design - move pagination up

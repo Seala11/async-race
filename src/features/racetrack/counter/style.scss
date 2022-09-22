@@ -3,3 +3,12 @@
     padding: 1rem 0 0;
   }
 }
+
+.header {
+  &__pagination {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+  }
+}

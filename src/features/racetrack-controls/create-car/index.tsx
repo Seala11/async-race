@@ -31,9 +31,10 @@ const CreateCar = ({ pageNumber }: Props) => {
         value={createdCar.name}
         placeholder="Car Name"
         onChange={(e) => changeCarName(e)}
+        className="controls__input"
       />
-      <input type="color" value={createdCar.color} onChange={(e) => changeCarColor(e)} />
-      <Button text="Create car" handler={createCar} />
+      <input type="color" value={createdCar.color} onChange={(e) => changeCarColor(e)} className="controls__input" />
+      <Button text="Create car" handler={createCar} classes="button__create" />
     </form>
   );
 };

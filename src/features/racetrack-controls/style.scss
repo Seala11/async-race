@@ -3,14 +3,14 @@
   &__update {
     margin: 1rem 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
   }
 
-  &__create {
-    width: 39rem;
+  &__input {
+    box-sizing: border-box;
+    height: 3.5rem;
   }
 
-  &__update {
-    width: 42rem;
-  }
 }

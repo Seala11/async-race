@@ -2,7 +2,7 @@ import { apiInstance, UrlPath } from './base';
 
 export enum GarageValues {
   PAGE_LIMIT = 7,
-  GENERATE_CARS_NUMBER = 7,
+  GENERATE_CARS_NUMBER = 10,
 }
 
 export interface ICarData {

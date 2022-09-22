@@ -11,7 +11,7 @@ const GenerateCars = () => {
     dispatch(fetchGenerateCars(currPage));
   };
 
-  return <Button text="Generate Cars" handler={generateCars} classes="button--controls" />;
+  return <Button text="Generate Cars" handler={generateCars} classes="button__generate" />;
 };
 
 export default GenerateCars;
