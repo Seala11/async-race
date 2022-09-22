@@ -36,15 +36,19 @@ const RacerInfo = ({ carData, selectedCar, pageNumber }: Props) => {
 
       <div className="info__wrapper">
         <div className="info__button-wrapper">
-          <AiFillEdit className="info__icon" fill="#fff" />
-          <button className="info__button" type="button" onClick={selectCar}>
+          <button
+            className={selectedCar.id === carData.id ? 'info__button info__button--active' : 'info__button'}
+            type="button"
+            onClick={selectCar}
+          >
+            <AiFillEdit className="info__icon" fill="#fff" />
             Edit
           </button>
         </div>
 
         <div className="info__button-wrapper">
-          <AiFillDelete className="info__icon" fill="#fff" />
-          <button className="info__button" type="button" onClick={deleteRacer}>
+          <button className="info__button info__button--delete" type="button" onClick={deleteRacer}>
+            <AiFillDelete className="info__icon" fill="#fff" />
             Delete
           </button>
         </div>
@@ -54,5 +58,3 @@ const RacerInfo = ({ carData, selectedCar, pageNumber }: Props) => {
 };
 
 export default RacerInfo;
-
-// {/* <Button text="delete" classes="button--info" handler={deleteRacer} /> */}

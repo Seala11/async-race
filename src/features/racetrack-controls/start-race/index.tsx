@@ -17,7 +17,7 @@ const StartRace = () => {
       disabled={raceStatus === RaceStatus.START || raceStatus === RaceStatus.PAUSE}
       text="Race"
       handler={start}
-      classes="button--controls"
+      classes="button__race"
     />
   );
 };

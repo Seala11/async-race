@@ -7,11 +7,12 @@ type Props = {
   handler?: () => void;
   disabled?: boolean;
   id?: string;
+  children?: React.ReactElement[] | React.ReactElement;
 };
 
-const defaultProps = { text: '', classes: '', handler: () => {}, disabled: false, id: '' };
+const defaultProps = { text: '', classes: '', handler: () => {}, disabled: false, id: '', children: null };
 
-const Button = ({ text, classes, handler, disabled, id }: Props) => {
+const Button = ({ text, classes, handler, disabled, id, children }: Props) => {
   return (
     <button
       id={id}
@@ -20,6 +21,7 @@ const Button = ({ text, classes, handler, disabled, id }: Props) => {
       type="button"
       onClick={handler}
     >
+      {children}
       {text}
     </button>
   );

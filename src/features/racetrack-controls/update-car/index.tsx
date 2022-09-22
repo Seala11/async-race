@@ -37,9 +37,15 @@ const UpdateCar = ({ pageNumber }: Props) => {
         value={selectedCar.name}
         placeholder="Car Name"
         onChange={(e) => changeCarName(e)}
+        disabled={selectedCar.id === 0}
       />
-      <input type="color" value={selectedCar.color || '#000000'} onChange={(e) => changeCarColor(e)} />
-      <Button text="Update selected car" handler={updateCar} />
+      <input
+        type="color"
+        value={selectedCar.color || '#000000'}
+        onChange={(e) => changeCarColor(e)}
+        disabled={selectedCar.id === 0}
+      />
+      <Button text="Edit car" handler={updateCar} disabled={selectedCar.id === 0} classes="button__edit" />
     </form>
   );
 };

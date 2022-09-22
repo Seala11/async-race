@@ -162,6 +162,7 @@ export const fetchCreateCar = (name: string, color: string, page: number) => asy
 export const fetchUpdateCar =
   (name: string, color: string, id: number, page: number) => async (dispatch: AppDispatch) => {
     await carsAPI.updateCar(name, color, id);
+    dispatch(removeSelectedCar());
     dispatch(fetchCurrentPageCars(page));
   };
 

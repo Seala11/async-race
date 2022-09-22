@@ -33,7 +33,7 @@ const CreateCar = ({ pageNumber }: Props) => {
         onChange={(e) => changeCarName(e)}
       />
       <input type="color" value={createdCar.color} onChange={(e) => changeCarColor(e)} />
-      <Button text="Create new car" handler={createCar} />
+      <Button text="Create car" handler={createCar} />
     </form>
   );
 };

@@ -12,6 +12,7 @@ import {
 
 import Image from '@src/shared/components/image';
 import Button from '@src/shared/components/button';
+import { BsFillPlayFill, BsFillStopFill } from 'react-icons/bs';
 import '@src/features/racetrack/racer/style.scss';
 
 import { ICarData } from '@src/shared/api/cars';
@@ -185,8 +186,14 @@ const Racer = ({ carData, pageNumber }: Props) => {
     <li className={`track__item ${selectedCar.id === carData.id ? 'track__item--selected' : ''}`}>
       <RacerInfo carData={carData} selectedCar={selectedCar} pageNumber={pageNumber} />
       <div className="track__race">
-        <Button text="start" disabled={animation.active} handler={startAnimation} classes="start" />
-        <Button text="stop" disabled={!animation.active} handler={stopAnimation} classes="stop" />
+        <Button text="" disabled={animation.active} handler={startAnimation} classes="track__button start">
+          <BsFillPlayFill fill="#fff" className="track__start--icon" />
+        </Button>
+
+        <Button text="" disabled={!animation.active} handler={stopAnimation} classes="track__button stop">
+          <BsFillStopFill fill="#fff" className="track__start--icon" />
+        </Button>
+
         <div
           className="track__animation"
           ref={image}

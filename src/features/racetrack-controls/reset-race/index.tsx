@@ -20,7 +20,7 @@ const ResetRace = () => {
       disabled={raceStatus === RaceStatus.END || raceStatus === RaceStatus.INIT}
       text="Reset"
       handler={reset}
-      classes="button--controls"
+      classes="button__race"
     />
   );
 };

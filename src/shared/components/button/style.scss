@@ -1,25 +1,46 @@
 .button {
   cursor: pointer;
-  border: 0.1rem solid var(--text-light);
-  background-color: var(--primary-btn);
-  color: var(--main-bg);
+  border: 0.1rem solid var(--primary);
+  background-color: var(--primary);
+  color: var(--main-text);
+  padding: 0.6rem 0.8rem;
   margin-right: 0.8rem;
+  border-radius: 0.5rem;
+  position: relative;
 
   &:hover {
-    background-color: lighten(rgb(169, 230, 113), 10%);
+    background-color: darken(#51b56d, 10%);
+    border: 0.1rem solid darken(#51b56d, 10%);
   }
 
-  &--disabled {
-    background-color: var(--btn-disabled);
-    cursor: auto;
+  &__race {
+    background-color: var(--transparent);
+    border: 0.1rem solid var(--race);
+    color: var(--race);
+    font-size: 2rem;
+    width: 16rem;
 
     &:hover {
-      background-color:  var(--btn-disabled);
+      border: 0.1rem solid var(--race);
+      background-color: var(--race);
+      color: var(--main-text);
     }
   }
 
-  &--controls {
-    width: 13.2rem;
-    height: 2.6rem;
+  &__edit {
+    background-color: var(--active);
+    border: 0.1rem solid var(--active);
+  }
+
+  &--disabled {
+    background-color: var(--disabled);
+    border: 0.1rem solid var(--disabled);
+    color: var(--main-text);
+    cursor: auto;
+
+    &:hover {
+      background-color: var(--disabled);
+      border: 0.1rem solid var(--disabled);
+    }
   }
 }

@@ -13,23 +13,34 @@
     cursor: pointer;
     border: 0;
     color: var(--main-light);
-    padding: 0.8rem 1rem 0.6rem 2.6rem;
+    padding: 0.6rem 1rem 0.6rem 2.6rem;
     background-color: transparent;
-    border: 2px solid var(--main-bg);
+    border: 0.2rem solid var(--main-bg);
     margin-bottom: 0.5rem;
     border-radius: 0.5rem;
+    font-weight: 300;
+    font-size: 1.4rem;
 
-    &:hover {
-      border: 2px solid var(--primary);
-      background-color: var(--primary);
+    &:hover, &--active {
+      border: 0.2rem solid var(--active);
+      background-color: var(--active);
     }
+
+    &--delete:hover {
+      border: 0.2rem solid var(--red);
+      background-color: var(--red);
+    }
+
   }
 
   &__icon {
     position: absolute;
-    top: 0.9rem;
+    top: 0.7rem;
     left: 0.5rem;
+    font-size: 1.6rem;
   }
+
+
 
   &__name {
     margin: 0;
