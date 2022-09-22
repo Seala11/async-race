@@ -9,33 +9,11 @@ const baseConfig = {
   entry: path.resolve(__dirname, './src/index.tsx'),
   output: {
     filename: 'index.[contenthash].js',
-    path: path.resolve(__dirname, '../dist'),
-    // assetModuleFilename: 'assets/images/[name][ext]',
+    path: path.resolve(__dirname, './dist'),
     clean: true,
   },
   module: {
     rules: [
-      // {
-      //   test: /\.css$/,
-      //   use: [
-      //     MiniCssExtractPlugin.loader,
-      //     {
-      //       loader: 'css-loader',
-      //       options: {
-      //         importLoaders: 1,
-      //         modules: {
-      //           localIdentName: '[name]__[local]___[hash:base64:5]',
-      //         },
-      //       },
-      //     },
-      //   ],
-      //   include: /\.module\.css$/,
-      // },
-      // {
-      //   test: /\.css$/,
-      //   use: [MiniCssExtractPlugin.loader, 'css-loader'],
-      //   exclude: /\.module\.css$/,
-      // },
       {
         test: /\.(sc|sa|c)ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
