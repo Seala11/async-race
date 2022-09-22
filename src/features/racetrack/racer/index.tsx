@@ -83,7 +83,6 @@ const Racer = ({ carData, pageNumber }: Props) => {
       const success = await engineAPI.drive(carData.id);
       if (!success) {
         const brokenPosition = image.current?.offsetLeft;
-        console.log(brokenPosition);
         if (!brokenPosition) return;
         setAnimation({
           ...animation,

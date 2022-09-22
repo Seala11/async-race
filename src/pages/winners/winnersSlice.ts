@@ -133,7 +133,6 @@ export const fetchGetWinners = (page: number, sortBy: string, order: string) => 
     dispatch(setTotalWinners(+total));
 
     const totalPages = Math.ceil(+total / WinnersValues.PAGE_LIMIT);
-    console.log(totalPages);
     dispatch(setTotalPages(totalPages));
   } catch (err) {
     console.error(err);

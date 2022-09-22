@@ -38,7 +38,6 @@ export const winnersAPI = {
       });
   },
   async updateWinner(id: number, wins: number, time: number) {
-    console.log({ wins, time });
     const response = await apiInstance.put<IWinnerData>(`${UrlPath.WINNERS}/${id}`, { wins, time });
     return response.data;
   },

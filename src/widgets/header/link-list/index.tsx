@@ -10,7 +10,6 @@ const LinkList = () => {
   const dispatch = useDispatch();
   const raceStatus = useAppSelector(selectRaceStatus);
   const location = useLocation();
-  console.log(location.pathname);
 
   const switchPage = () => {
     if (raceStatus === RaceStatus.START) dispatch(setRaceStatus(RaceStatus.PAUSE));

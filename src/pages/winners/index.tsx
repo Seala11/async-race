@@ -24,9 +24,7 @@ const Winners = () => {
   const loading = useAppSelector(selectLoading);
 
   useEffect(() => {
-    console.log(tableSort);
     const currOrder = tableSort.sort === WinnerSortParam.WINS ? tableSort.winsOrder : tableSort.timeOrder;
-    console.log(winnersPage, tableSort.sort, currOrder);
     dispatch(fetchGetWinners(winnersPage, tableSort.sort, currOrder));
   }, [tableSort.sort, tableSort.timeOrder, tableSort.winsOrder, winnersPage]);
 
