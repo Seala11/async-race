@@ -13,4 +13,9 @@
     height: 3.5rem;
   }
 
+  &__race {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 }

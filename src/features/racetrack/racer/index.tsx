@@ -186,11 +186,16 @@ const Racer = ({ carData, pageNumber }: Props) => {
     <li className={`track__item ${selectedCar.id === carData.id ? 'track__item--selected' : ''}`}>
       <RacerInfo carData={carData} selectedCar={selectedCar} pageNumber={pageNumber} />
       <div className="track__race">
-        <Button text="" disabled={animation.active} handler={startAnimation} classes="track__button start">
+        <Button
+          text=""
+          disabled={animation.active}
+          handler={startAnimation}
+          classes="button__start track__button start"
+        >
           <BsFillPlayFill fill="#fff" className="track__start--icon" />
         </Button>
 
-        <Button text="" disabled={!animation.active} handler={stopAnimation} classes="track__button stop">
+        <Button text="" disabled={!animation.active} handler={stopAnimation} classes="button__start track__button stop">
           <BsFillStopFill fill="#fff" className="track__start--icon" />
         </Button>
 

@@ -22,10 +22,20 @@
     font-size: 1.4rem;
     transition: all 0.2s;
 
-    &:hover,
+    &:hover{
+      border: 0.2rem solid var(--active);
+      background-color: var(--active);
+    }
+
     &--active {
       border: 0.2rem solid var(--active);
       background-color: var(--active);
+
+      &:hover {
+        border: 0.2rem solid darken(#5b25b1, 10%);
+        background-color: darken(#5b25b1, 10%);
+        color: var(--main-text);
+      }
     }
 
     &--delete:hover {

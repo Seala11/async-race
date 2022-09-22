@@ -13,7 +13,7 @@ const Footer = () => {
           </li>
           <li className="footer__item">
             2022{' '}
-            <a target="_blank" href="https://rs.school/js/" rel="noreferrer" className="footer__link">
+            <a target="_blank" href="https://rs.school/" rel="noreferrer" className="footer__link">
               RSSchool
             </a>
           </li>

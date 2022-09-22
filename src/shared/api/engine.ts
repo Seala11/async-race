@@ -22,7 +22,7 @@ export const engineAPI = {
       .then((response) => response.data)
       .catch((err) => {
         if (err.response?.status === 500) {
-          console.error('car engine has breakdown due to overheating');
+          console.error('car engine has broken down due to overheating');
           return false;
         }
         throw new Error(err);
