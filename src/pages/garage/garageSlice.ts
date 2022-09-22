@@ -27,13 +27,6 @@ export type RacerAnimationType = {
   active: boolean;
 };
 
-// export type RacerDriveType = {
-//   id: number;
-//   driveStatus: boolean;
-//   velocity: number;
-//   distance: number;
-// };
-
 export enum RaceStatus {
   INIT = 'initial',
   START = 'start',
@@ -45,6 +38,7 @@ interface GarageState {
   cars: ICarData[];
   totalCars: number;
   pageNumber: number;
+  totalPages: number;
   selectedCar: SelectedCar;
   createdCar: CreatedCar;
   raceStatus: string;
@@ -55,6 +49,7 @@ const initialState: GarageState = {
   cars: [],
   totalCars: 0,
   pageNumber: 1,
+  totalPages: 1,
   selectedCar: { id: 0, color: '#000000', name: '' },
   createdCar: { color: '#000000', name: '' },
   raceStatus: RaceStatus.INIT,
@@ -79,6 +74,9 @@ export const garageSlice = createSlice({
     // page
     setPageNumber: (state, action: PayloadAction<number>) => {
       state.pageNumber = action.payload;
+    },
+    setTotalPages: (state, action: PayloadAction<number>) => {
+      state.totalPages = action.payload;
     },
 
     // selected car
@@ -109,16 +107,13 @@ export const garageSlice = createSlice({
     },
     addRacerAnimation: (state, action: PayloadAction<RacerAnimationType>) => {
       state.racersAnimation = [...state.racersAnimation, action.payload];
-      console.log('add', state.racersAnimation);
     },
     updateRacerAnimation: (state, action: PayloadAction<RacerAnimationType>) => {
       const newState = state.racersAnimation.filter((item) => item.id !== action.payload.id);
       state.racersAnimation = [...newState, action.payload];
-      console.log('update', state.racersAnimation);
     },
     clearRacersAnimation: (state) => {
       state.racersAnimation = [];
-      console.log('clear', state.racersAnimation);
     },
   },
 });
@@ -128,6 +123,7 @@ export const {
   setTotalCars,
   updateTotalCars,
   setPageNumber,
+  setTotalPages,
   setCreatedCarColor,
   setCreatedCarName,
   setSelectedCar,
@@ -144,7 +140,8 @@ export const fetchCurrentPageCars = (page: number) => async (dispatch: AppDispat
   dispatch(setLoading());
   try {
     const data = await carsAPI.getCars(page);
-    console.log(data);
+    const totalPages = Math.ceil(+data.total / GarageValues.PAGE_LIMIT);
+    dispatch(setTotalPages(totalPages));
     dispatch(setCars(data.cars));
     dispatch(setTotalCars(+data.total));
   } catch (err) {
@@ -175,16 +172,24 @@ export const fetchDeleteCar = (id: number, page: number) => async (dispatch: App
 };
 
 export const fetchGenerateCars = (page: number) => async (dispatch: AppDispatch) => {
-  const carsPromises: Promise<ICarData[]>[] = Array.from(Array(GarageValues.GENERATE_CARS_NUMBER)).map(() =>
-    carsAPI.createCar(getRandomName(), getRandomColor())
-  );
-  await Promise.all(carsPromises);
-  dispatch(fetchCurrentPageCars(page));
+  dispatch(setLoading());
+  try {
+    const carsPromises: Promise<ICarData[]>[] = Array.from(Array(GarageValues.GENERATE_CARS_NUMBER)).map(() =>
+      carsAPI.createCar(getRandomName(), getRandomColor())
+    );
+    await Promise.all(carsPromises);
+    dispatch(fetchCurrentPageCars(page));
+  } catch (err) {
+    console.error(err);
+  } finally {
+    dispatch(removeLoading());
+  }
 };
 
 export const selectCurrentCars = (state: RootState) => state.garage.cars;
 export const selectTotalCars = (state: RootState) => state.garage.totalCars;
 export const selectPageNumber = (state: RootState) => state.garage.pageNumber;
+export const selectTotalPages = (state: RootState) => state.garage.totalPages;
 export const selectCreatedCar = (state: RootState) => state.garage.createdCar;
 export const selectSelectedCar = (state: RootState) => state.garage.selectedCar;
 export const selectRaceStatus = (state: RootState) => state.garage.raceStatus;

@@ -13,6 +13,7 @@
   align-items: center;
 
   &__button {
+    box-sizing: border-box;
     color: var(--main-text);
     padding: 1.2rem;
     background-color: transparent;
@@ -22,22 +23,27 @@
     font-size: 1.4rem;
     position: relative;
     cursor: pointer;
+    transition: all 0.2s;
 
-    &:hover,
     &--active {
       border: 0.2rem solid var(--primary);
       background-color: var(--primary);
     }
 
+    &:hover{
+      border: 0.2rem solid darken(#51b56d, 10%);
+      background-color: darken(#51b56d, 10%);
+    }
+
     &:disabled {
       background-color: var(--disabled);
-      border: 0.1rem solid var(--disabled);
+      border: 0.2rem solid var(--disabled);
       color: var(--main-text);
       cursor: auto;
 
       &:hover {
         background-color: var(--disabled);
-        border: 0.1rem solid var(--disabled);
+        border: 0.2rem solid var(--disabled);
       }
     }
   }

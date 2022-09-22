@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from '@src/shared/components/button';
 import { useAppDispatch } from '@src/app/store/hooks';
 import { setPageNumber } from '@src/pages/winners/winnersSlice';
 import { WinnersValues } from '@src/shared/api/winners';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 type Props = {
   winnersPage: number;
@@ -12,9 +12,9 @@ type Props = {
 const WinnersPagination = (props: Props) => {
   const { winnersNumber, winnersPage } = props;
   const dispatch = useAppDispatch();
+  const nextPageExist = winnersNumber - winnersPage * WinnersValues.PAGE_LIMIT > 0;
 
   const showNextPage = () => {
-    const nextPageExist = winnersNumber - winnersPage * WinnersValues.PAGE_LIMIT > 0;
     if (nextPageExist) dispatch(setPageNumber(winnersPage + 1));
   };
 
@@ -23,9 +23,13 @@ const WinnersPagination = (props: Props) => {
   };
 
   return (
-    <div className="garage__pagination">
-      <Button text="prev" handler={showPrevPage} />
-      <Button text="next" handler={showNextPage} />
+    <div className="winners__wrapper">
+      <button type="button" onClick={showPrevPage} className="pagination__button" disabled={winnersPage === 1}>
+        <AiOutlineArrowLeft className="pagination__icon" fill="#fff" />
+      </button>
+      <button type="button" onClick={showNextPage} className="pagination__button" disabled={!nextPageExist}>
+        <AiOutlineArrowRight className="pagination__icon" fill="#fff" />
+      </button>
     </div>
   );
 };

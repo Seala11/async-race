@@ -7,6 +7,7 @@
   margin-right: 0.8rem;
   border-radius: 0.5rem;
   position: relative;
+  transition: all 0.2s;
 
   &:hover {
     background-color: darken(#51b56d, 10%);

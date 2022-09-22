@@ -2,4 +2,8 @@
   max-width: 144rem;
   width: 94%;
   margin: 0 auto;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

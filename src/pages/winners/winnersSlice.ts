@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { removeLoading, setLoading } from '@src/app/appSlice';
 
-import { IWinnerInfo, winnersAPI } from '@src/shared/api/winners';
+import { IWinnerInfo, winnersAPI, WinnersValues } from '@src/shared/api/winners';
 import { carsAPI, ICarData } from '@src/shared/api/cars';
 
 import type { AppDispatch, RootState } from '../../app/store';
@@ -34,6 +34,7 @@ interface WinnersState {
   winners: IWinnerInfo[];
   totalWinners: number;
   pageNumber: number;
+  totalPages: number;
   raceWinner: RaceWinnerType;
   tableSort: TableSortType;
 }
@@ -42,6 +43,7 @@ const initialState: WinnersState = {
   winners: [],
   totalWinners: 0,
   pageNumber: 1,
+  totalPages: 1,
   raceWinner: {
     winnerId: null,
     winnerTime: '',
@@ -71,6 +73,9 @@ export const winnersSlice = createSlice({
     // page
     setPageNumber: (state, action: PayloadAction<number>) => {
       state.pageNumber = action.payload;
+    },
+    setTotalPages: (state, action: PayloadAction<number>) => {
+      state.totalPages = action.payload;
     },
 
     // race
@@ -105,6 +110,7 @@ export const {
   setTotalWinners,
   addTotalWinners,
   setPageNumber,
+  setTotalPages,
   setRaceWinner,
   setTableSortParam,
   toggleTableWinsOrder,
@@ -125,6 +131,10 @@ export const fetchGetWinners = (page: number, sortBy: string, order: string) => 
     const info = await Promise.all(dataPromises);
     dispatch(setWinners(info));
     dispatch(setTotalWinners(+total));
+
+    const totalPages = Math.ceil(+total / WinnersValues.PAGE_LIMIT);
+    console.log(totalPages);
+    dispatch(setTotalPages(totalPages));
   } catch (err) {
     console.error(err);
   } finally {
@@ -156,6 +166,7 @@ export const selectWinnersCars = (state: RootState) => state.winners.winners;
 export const selectTotalWinners = (state: RootState) => state.winners.totalWinners;
 export const selectRaceWinner = (state: RootState) => state.winners.raceWinner;
 export const selectPageNumber = (state: RootState) => state.winners.pageNumber;
+export const selectTotalPages = (state: RootState) => state.winners.totalPages;
 export const selectTableSort = (state: RootState) => state.winners.tableSort;
 
 export default winnersSlice.reducer;

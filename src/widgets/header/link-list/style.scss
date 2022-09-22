@@ -14,10 +14,12 @@
     background-color: transparent;
     padding: 0.3rem 1rem;
     font-size: 1.8rem;
+    transition: all 0.2s;
 
     &:hover{
       text-underline-offset: 0.8rem;
       text-decoration: underline 0.2rem;
+      color: darken(#51b56d, 10%);
     }
 
     &--active {

@@ -20,8 +20,10 @@
     border-radius: 0.5rem;
     font-weight: 300;
     font-size: 1.4rem;
+    transition: all 0.2s;
 
-    &:hover, &--active {
+    &:hover,
+    &--active {
       border: 0.2rem solid var(--active);
       background-color: var(--active);
     }
@@ -30,7 +32,6 @@
       border: 0.2rem solid var(--red);
       background-color: var(--red);
     }
-
   }
 
   &__icon {
@@ -39,8 +40,6 @@
     left: 0.5rem;
     font-size: 1.6rem;
   }
-
-
 
   &__name {
     margin: 0;
