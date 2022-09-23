@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export enum UrlPath {
-  BASE = 'https://async-race-sever.herokuapp.com',
+  BASE = 'https://async-race-seala11.onrender.com',
   GARAGE = 'garage',
   WINNERS = 'winners',
   ENGINE = 'engine',
